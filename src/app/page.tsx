@@ -11,6 +11,8 @@ import CasesView from "@/components/views/CasesView";
 import TasksView from "@/components/views/TasksView";
 import DocumentsView from "@/components/views/DocumentsView";
 import AIView from "@/components/views/AIView";
+import PlansView from "@/components/views/PlansView";
+import SettingsView from "@/components/views/SettingsView";
 
 export const rolesData: Record<string, RoleData> = {
   familia: {
@@ -142,6 +144,8 @@ export default function Home() {
       case "tasks": return <TasksView role={role as string} />;
       case "documents": return <DocumentsView role={role as string} />;
       case "ai": return <AIView role={role as string} />;
+      case "plans": return <PlansView role={role as string} />;
+      case "settings": return <SettingsView role={role as string} />;
       default:
         return (
           <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
