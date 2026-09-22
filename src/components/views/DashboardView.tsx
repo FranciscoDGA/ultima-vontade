@@ -1,4 +1,14 @@
 import React from "react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+
+const chartData = [
+  { name: "Jan", casos: 4 },
+  { name: "Fev", casos: 7 },
+  { name: "Mar", casos: 12 },
+  { name: "Abr", casos: 18 },
+  { name: "Mai", casos: 15 },
+  { name: "Jun", casos: 24 },
+];
 
 const dashboardData: Record<string, any> = {
   familia: {
@@ -219,6 +229,36 @@ export default function DashboardView({ role, setScreen }: { role: string; setSc
           </div>
         </div>
       </div>
+
+      {/* Chart Section */}
+      {role !== "familia" && (
+        <div className="bg-white border border-line rounded-2xl shadow-sm p-5 mt-1">
+          <div className="mb-4">
+            <h2 className="text-navy text-[16px] font-bold m-0">Volume de Casos (Últimos 6 meses)</h2>
+            <p className="text-muted text-[12px] mt-1">Acompanhamento de novos registros na plataforma.</p>
+          </div>
+          <div className="h-[250px] w-full text-xs">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="colorCasos" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
+                    <stop offset="95%" stopColor="var(--accent)" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--muted)' }} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--muted)' }} />
+                <CartesianGrid vertical={false} stroke="#eef1f5" />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '12px', border: '1px solid #eef1f5', boxShadow: '0 10px 25px rgba(0,0,0,0.05)' }} 
+                  itemStyle={{ color: 'var(--navy)', fontWeight: 'bold' }}
+                />
+                <Area type="monotone" dataKey="casos" stroke="var(--accent)" strokeWidth={3} fillOpacity={1} fill="url(#colorCasos)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
