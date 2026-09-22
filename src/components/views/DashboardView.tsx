@@ -31,20 +31,20 @@ const dashboardData: Record<string, any> = {
   },
   advocacia: {
     k: [
-      ["Casos ativos", "18", "+3 nesta semana"],
-      ["Prazos em 7 dias", "7", "2 prioritários"],
-      ["Docs. pendentes", "12", "4 aguardando cliente"],
-      ["SLA cumprido", "92%", "meta de 90%"],
+      ["Providências identificadas", "28", "18 concluídas"],
+      ["Aguardando documentos", "6", "23 já organizados"],
+      ["Prazo próximo", "3", "Atenção necessária"],
+      ["Situação de risco", "1", "4 pessoas envolvidas"],
     ],
     rows: [
-      ["Família Souza", "Seguro de vida", "Ana Souza", "Urgente"],
-      ["Família Oliveira", "Documentos civis", "Rafael Lima", "Aguardando"],
-      ["Família Santos", "Inventário", "Marcos Silva", "No prazo"],
+      ["Família Silva", "Inventário com Seguro", "Hoje", "Urgente: ITCMD"],
+      ["Família Oliveira", "Seguro de Vida", "2 dias", "Aguardando certidão"],
+      ["Família Souza", "Alvará Judicial", "15 set", "No prazo"],
     ],
     quickActions: [
-      ["♙", "Cadastrar cliente", "clients"],
-      ["▤", "Abrir inventário", "cases"],
-      ["✦", "Pedir ajuda à IA", "ai"],
+      ["♙", "+ Novo Caso (Smart)", "cases"],
+      ["▤", "Cobrar Pendências", "tasks"],
+      ["✦", "Relatório de Produtividade", "documents"],
     ],
   },
   funeraria: {
