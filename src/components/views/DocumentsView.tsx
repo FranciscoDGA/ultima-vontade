@@ -40,13 +40,14 @@ export default function DocumentsView({ role }: { role: string }) {
                 <strong className="text-navy flex items-center gap-2">
                   📄 Certidão de óbito.pdf
                 </strong>
+                {isFamily && <p className="text-[10px] text-muted mt-1">Quem pode acessar: Ana, Advogado, Contabilidade</p>}
               </td>
               <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">Documentos civis</td>
               {!isFamily && <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">Ana Souza</td>}
               <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">Hoje, 09:41</td>
               <td className="py-4 px-5 border-b border-[#f0f2f6]">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#eaf8f5] text-[#078b7d] text-[11px] font-[850]">
-                  <CheckCircle2 size={12} /> Aprovado
+                  <CheckCircle2 size={12} /> Aprovado (Validado)
                 </span>
               </td>
             </tr>
@@ -57,13 +58,14 @@ export default function DocumentsView({ role }: { role: string }) {
                 <strong className="text-navy flex items-center gap-2">
                   📄 Apólice seguro vida_v2.pdf
                 </strong>
+                {isFamily && <p className="text-[10px] text-muted mt-1">Quem pode acessar: Ana</p>}
               </td>
               <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">Seguros</td>
               {!isFamily && <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">Ana Souza</td>}
               <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">Ontem, 15:20</td>
               <td className="py-4 px-5 border-b border-[#f0f2f6]">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#fff6e3] text-[#a87200] text-[11px] font-[850]">
-                  <Clock size={12} /> {isFamily ? "Em análise" : "Revisar Envio"}
+                  <Clock size={12} /> Em análise
                 </span>
               </td>
             </tr>
@@ -74,13 +76,14 @@ export default function DocumentsView({ role }: { role: string }) {
                 <strong className="text-navy flex items-center gap-2">
                   ⚠️ Certidão de Casamento Atualizada
                 </strong>
+                {isFamily && <p className="text-[10px] text-danger mt-1">Vencido. Por favor envie uma versão atual.</p>}
               </td>
               <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">Documentos civis</td>
               {!isFamily && <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">-</td>}
               <td className="py-4 px-5 border-b border-[#f0f2f6] text-muted">-</td>
               <td className="py-4 px-5 border-b border-[#f0f2f6]">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#fff0f1] text-[#ce4e5d] text-[11px] font-[850]">
-                  <AlertCircle size={12} /> {isFamily ? "Pendente Envio" : "Aguardando Cliente"}
+                  <AlertCircle size={12} /> {isFamily ? "Solicitado: Enviar PDF/Foto" : "Aguardando Cliente"}
                 </span>
               </td>
             </tr>

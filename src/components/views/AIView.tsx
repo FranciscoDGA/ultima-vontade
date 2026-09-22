@@ -1,22 +1,121 @@
 import React, { useState } from "react";
-import { Sparkles, FileText, MessageSquare, Database, Settings2 } from "lucide-react";
+import { Sparkles, FileText, MessageSquare, Database, Settings2, Send, Bot, ShieldAlert, CheckCircle2, AlertTriangle } from "lucide-react";
 
 export default function AIView({ role }: { role: string }) {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState<string | null>(null);
+  const isFamily = role === "familia";
 
   const handleSimulate = () => {
     if (!prompt.trim()) return;
     setLoading(true);
     setResponse(null);
     
-    // Simulate AI delay
     setTimeout(() => {
       setLoading(false);
-      setResponse("Orientação sugerida: pause a cobrança, reúna o documento recebido, confirme a origem por canal oficial e encaminhe o caso para revisão da equipe. A IA não toma decisão jurídica.");
+      setResponse(isFamily 
+        ? "Você pode obter a certidão de óbito no cartório onde o registro foi feito. Se precisar, posso preparar um formulário de solicitação para você."
+        : "Orientação sugerida: pause a cobrança, reúna o documento recebido e encaminhe para revisão."
+      );
     }, 1500);
   };
+
+  if (isFamily) {
+    return (
+      <div className="flex flex-col h-[calc(100vh-140px)] max-w-4xl mx-auto bg-white rounded-3xl border border-line shadow-sm overflow-hidden animate-in fade-in">
+        {/* Header */}
+        <div className="p-6 border-b border-line bg-gradient-to-r from-[#f0edff] to-white flex justify-between items-start">
+          <div className="flex gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-accent text-white flex items-center justify-center shrink-0 shadow-lg">
+              <Bot size={24} />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold text-navy mb-1">Assistente Pessoal</h2>
+              <p className="text-sm text-muted">Uma inteligência artificial treinada para ajudar a sua família a entender as etapas e organizar os documentos com linguagem simples.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Guidelines */}
+        <div className="px-6 pt-6 pb-2">
+          <div className="bg-[#fff6e3] border border-[#f5d996] rounded-2xl p-4 flex gap-4">
+            <ShieldAlert className="text-[#a87200] shrink-0" />
+            <div>
+              <h3 className="text-[#a87200] font-bold text-sm mb-1">Limitações Importantes</h3>
+              <ul className="text-[#8c5f00] text-xs space-y-1 list-disc list-inside">
+                <li>O Assistente não toma decisões jurídicas nem substitui seu advogado.</li>
+                <li>O Assistente não afirma quem tem direito à herança ou quem não tem.</li>
+                <li>Qualquer dúvida complexa será redirecionada para a equipe de Lima & Associados.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Chat Area */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          <div className="flex gap-4">
+            <div className="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center shrink-0 mt-1">
+              <Bot size={16} />
+            </div>
+            <div className="bg-gray-50 border border-line rounded-2xl rounded-tl-none p-4 text-sm text-navy max-w-[80%] leading-relaxed shadow-sm">
+              Olá! Como posso ajudar você hoje com o plano do inventário? Você pode me pedir para:
+              <ul className="mt-3 space-y-2">
+                <li className="flex items-center gap-2"><Sparkles size={14} className="text-accent" /> Explicar um termo difícil que o banco usou.</li>
+                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-ok" /> Dizer quais documentos ainda faltam você enviar.</li>
+                <li className="flex items-center gap-2"><FileText size={14} className="text-navy" /> Ajudar a escrever um e-mail para a seguradora.</li>
+              </ul>
+            </div>
+          </div>
+
+          {response && (
+             <div className="flex gap-4">
+               <div className="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center shrink-0 mt-1">
+                 <Bot size={16} />
+               </div>
+               <div className="bg-gray-50 border border-line rounded-2xl rounded-tl-none p-4 text-sm text-navy max-w-[80%] leading-relaxed shadow-sm">
+                 {response}
+               </div>
+             </div>
+          )}
+          {loading && (
+             <div className="flex gap-4">
+               <div className="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center shrink-0 mt-1">
+                 <Bot size={16} />
+               </div>
+               <div className="bg-gray-50 border border-line rounded-2xl rounded-tl-none p-4 text-sm text-navy max-w-[80%] leading-relaxed shadow-sm flex gap-1">
+                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"></span>
+                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-75"></span>
+                 <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce delay-150"></span>
+               </div>
+             </div>
+          )}
+        </div>
+
+        {/* Input */}
+        <div className="p-4 bg-white border-t border-line">
+          <div className="relative">
+            <input 
+              type="text" 
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSimulate()}
+              placeholder="Ex: Como consigo a certidão de óbito?" 
+              className="w-full bg-gray-50 border border-line rounded-2xl py-4 pl-4 pr-14 text-sm focus:border-accent outline-none focus:bg-white transition-all shadow-inner"
+            />
+            <button 
+              onClick={handleSimulate}
+              disabled={loading || !prompt.trim()}
+              className="absolute right-2 top-2 bottom-2 w-10 bg-accent text-white rounded-xl flex items-center justify-center shadow-md hover:brightness-110 transition-all disabled:opacity-50"
+            >
+              <Send size={16} />
+            </button>
+          </div>
+          <p className="text-center text-[10px] text-muted mt-3">A IA pode cometer erros. Confirme as informações com seu advogado.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grid gap-5">

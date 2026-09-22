@@ -9,20 +9,56 @@ export default function SettingsView({ role }: { role: string }) {
     return (
       <div className="max-w-3xl mx-auto bg-white rounded-3xl p-8 border border-line shadow-sm animate-in fade-in">
         <h2 className="text-2xl font-bold text-navy mb-6">Configurações da Conta</h2>
+        
         <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-bold text-navy mb-2">Nome Completo</label>
-            <input type="text" className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none" defaultValue="Ana Souza" />
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-bold text-navy mb-2">Nome Completo</label>
+              <input type="text" className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none" defaultValue="Ana Souza" />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-navy mb-2">E-mail</label>
+              <input type="email" className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none" defaultValue="ana.souza@email.com" />
+            </div>
           </div>
+
           <div>
-            <label className="block text-sm font-bold text-navy mb-2">E-mail</label>
-            <input type="email" className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none" defaultValue="ana.souza@email.com" />
+            <h3 className="text-lg font-bold text-navy mb-3">Preferências e Notificações</h3>
+            <div className="space-y-3">
+              <label className="flex items-center gap-3 p-3 border border-line rounded-xl cursor-pointer hover:bg-gray-50">
+                <input type="checkbox" defaultChecked className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent" />
+                <span className="text-sm font-semibold text-navy">Receber avisos de prazos via WhatsApp</span>
+              </label>
+              <label className="flex items-center gap-3 p-3 border border-line rounded-xl cursor-pointer hover:bg-gray-50">
+                <input type="checkbox" defaultChecked className="w-4 h-4 text-accent border-gray-300 rounded focus:ring-accent" />
+                <span className="text-sm font-semibold text-navy">Relatório semanal de andamento no e-mail</span>
+              </label>
+            </div>
           </div>
-          <div className="pt-4 border-t border-line">
+
+          <div>
+            <h3 className="text-lg font-bold text-navy mb-3">Privacidade e Dados</h3>
+            <div className="flex gap-3">
+              <button className="px-4 py-2 bg-gray-100 text-navy font-bold rounded-lg hover:bg-gray-200 transition-colors">
+                Baixar Histórico de Acessos
+              </button>
+              <button className="px-4 py-2 bg-gray-100 text-navy font-bold rounded-lg hover:bg-gray-200 transition-colors">
+                Exportar Meus Dados (ZIP)
+              </button>
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-line mt-8">
             <h3 className="text-lg font-bold text-danger mb-2">Zona de Perigo</h3>
-            <button className="px-4 py-2 bg-[#fff0f1] text-[#ce4e5d] font-bold rounded-lg border border-[#f5c2c7] hover:brightness-95 transition-all">
-              Solicitar exclusão dos meus dados (LGPD)
-            </button>
+            <p className="text-sm text-muted mb-4">Ações irreversíveis relacionadas ao seu processo.</p>
+            <div className="flex gap-3">
+              <button className="px-4 py-2 bg-white text-[#ce4e5d] font-bold rounded-lg border border-[#f5c2c7] hover:bg-[#fff0f1] transition-all">
+                Solicitar Encerramento do Caso
+              </button>
+              <button className="px-4 py-2 bg-[#fff0f1] text-[#ce4e5d] font-bold rounded-lg border border-[#f5c2c7] hover:brightness-95 transition-all">
+                Excluir Conta (LGPD)
+              </button>
+            </div>
           </div>
         </div>
       </div>

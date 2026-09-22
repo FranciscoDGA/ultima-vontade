@@ -108,50 +108,93 @@ export default function DashboardView({ role, setScreen }: { role: string; setSc
 
   if (role === "familia") {
     return (
-      <div className="grid gap-6 max-w-4xl mx-auto">
+      <div className="grid gap-6 max-w-4xl mx-auto animate-in fade-in">
         {/* Welcome Message */}
-        <div className="bg-gradient-to-br from-[#f0edff] to-[#edf5ff] border border-[#ded9ff] rounded-2xl p-8 text-center">
-          <h2 className="text-[24px] font-bold text-[#41337c] mb-2">Olá, Ana. Estamos aqui para ajudar.</h2>
+        <div className="bg-gradient-to-br from-[#f0edff] to-[#edf5ff] border border-[#ded9ff] rounded-2xl p-8 text-center shadow-sm">
+          <h2 className="text-[24px] font-bold text-[#41337c] mb-2">Olá, Família Souza. Estamos aqui para ajudar.</h2>
           <p className="text-[#665d88] text-[14px] max-w-2xl mx-auto leading-relaxed">
-            Seu processo de inventário e organização está sendo conduzido por <b>Lima & Associados</b>.
-            Siga as etapas abaixo e envie os documentos solicitados para mantermos tudo no prazo.
+            Seu processo de organização patrimonial e inventário está sendo conduzido por <b>Lima & Associados</b>. Siga as etapas abaixo e conte conosco.
           </p>
+        </div>
+
+        {/* Indicators */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+          <div className="bg-white border border-line rounded-xl p-4 text-center">
+            <strong className="block text-2xl text-navy">18/28</strong>
+            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Etapas concluídas</span>
+          </div>
+          <div className="bg-white border border-line rounded-xl p-4 text-center">
+            <strong className="block text-2xl text-navy">3</strong>
+            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Docs pendentes</span>
+          </div>
+          <div className="bg-white border border-line rounded-xl p-4 text-center">
+            <strong className="block text-2xl text-danger">2</strong>
+            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Tarefas urgentes</span>
+          </div>
+          <div className="bg-white border border-line rounded-xl p-4 text-center">
+            <strong className="block text-2xl text-[#a87200]">3 dias</strong>
+            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Próximo prazo</span>
+          </div>
+          <div className="bg-white border border-line rounded-xl p-4 text-center">
+            <strong className="block text-2xl text-navy">4</strong>
+            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Pessoas envolvidas</span>
+          </div>
         </div>
 
         {/* Big Progress Bar */}
         <div className="bg-white border border-line rounded-2xl p-6 shadow-sm">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-bold text-navy text-[16px] m-0">Progresso do Caso</h3>
+            <h3 className="font-bold text-navy text-[16px] m-0">Progresso Geral</h3>
             <span className="bg-ok/10 text-ok px-3 py-1 rounded-full text-xs font-bold">64% Concluído</span>
           </div>
           <div className="w-full bg-gray-100 rounded-full h-3 mb-2">
             <div className="bg-accent h-3 rounded-full transition-all" style={{ width: '64%' }}></div>
           </div>
           <div className="flex justify-between text-xs text-muted font-bold uppercase tracking-wider mt-3">
-            <span className="text-accent">1. Documentação</span>
-            <span className="text-accent">2. Impostos</span>
-            <span>3. Partilha</span>
+            <span className="text-accent">1. Documentos Iniciais</span>
+            <span className="text-accent">2. Inventário</span>
+            <span>3. Bancos e Seguros</span>
             <span>4. Conclusão</span>
           </div>
         </div>
 
-        {/* Pendencies for Family */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-[#fff0f1] border border-[#f5c2c7] rounded-2xl p-5">
-            <h3 className="text-[#ce4e5d] font-bold text-[15px] mb-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#ce4e5d]"></span>
-              Ação Necessária
-            </h3>
-            <p className="text-[#a83240] text-sm mb-4">O escritório solicitou o envio da Certidão de Casamento atualizada.</p>
-            <button onClick={() => setScreen("documents")} className="bg-[#ce4e5d] text-white px-4 py-2 rounded-lg text-xs font-bold shadow-sm hover:brightness-110">
-              Enviar Documento
-            </button>
+        {/* Pendencies & Quick Actions */}
+        <div className="grid md:grid-cols-[1fr_250px] gap-6">
+          <div className="space-y-4">
+            <div className="bg-[#fff0f1] border border-[#f5c2c7] rounded-2xl p-5 shadow-sm">
+              <h3 className="text-[#ce4e5d] font-bold text-[15px] mb-2 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#ce4e5d]"></span> Alerta Importante
+              </h3>
+              <p className="text-[#a83240] text-sm mb-4">O escritório solicitou o envio da Certidão de Casamento atualizada para dar entrada no inventário.</p>
+              <button onClick={() => setScreen("documents")} className="bg-[#ce4e5d] text-white px-4 py-2.5 rounded-lg text-sm font-bold shadow-sm hover:brightness-110 transition-all">
+                Enviar Documento
+              </button>
+            </div>
+            <div className="bg-[#fff6e3] border border-[#f5d996] rounded-2xl p-5 shadow-sm">
+              <h3 className="text-[#a87200] font-bold text-[15px] mb-2 flex items-center gap-2">Mensagem do Profissional</h3>
+              <p className="text-[#8c5f00] text-sm">"Ana, por favor confira a lista de bens que inseri no plano e valide se esquecemos de algum veículo." - <b>Dr. Rafael Lima</b></p>
+            </div>
           </div>
 
-          <div className="bg-white border border-line rounded-2xl p-5">
-            <h3 className="text-navy font-bold text-[15px] mb-2">Próxima Reunião</h3>
-            <p className="text-muted text-sm mb-4">Alinhamento sobre as guias do ITCMD com Dr. Rafael Lima.</p>
-            <p className="text-navy font-bold text-sm">Quinta-feira, 24 de Setembro às 14:00</p>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <h3 className="text-navy font-bold text-[14px] mb-4">Ações Rápidas</h3>
+            <div className="space-y-2">
+              <button onClick={() => setScreen("tasks")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                ▶ Continuar plano
+              </button>
+              <button onClick={() => setScreen("tasks")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                + Adicionar tarefa
+              </button>
+              <button onClick={() => setScreen("clients")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                👤 Convidar familiar
+              </button>
+              <button onClick={() => setScreen("ai")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                🤖 Pedir ajuda (IA)
+              </button>
+              <button className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                💬 Falar c/ profissional
+              </button>
+            </div>
           </div>
         </div>
       </div>
