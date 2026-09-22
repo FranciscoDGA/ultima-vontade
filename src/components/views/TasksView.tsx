@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { CheckCircle2, Clock, AlertCircle, FileText, Upload, Info } from "lucide-react";
 
 export default function TasksView({ role }: { role: string }) {
+  const [selectedTask, setSelectedTask] = useState(false);
   const isFamily = role === "familia";
   const title = isFamily ? "Meu plano de providências" : "Tarefas e prazos";
   
