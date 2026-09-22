@@ -4,6 +4,10 @@ import { useState } from "react";
 import { Sidebar, RoleData } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import DashboardView from "@/components/views/DashboardView";
+import ClientsView from "@/components/views/ClientsView";
+import CasesView from "@/components/views/CasesView";
+import TasksView from "@/components/views/TasksView";
+import DocumentsView from "@/components/views/DocumentsView";
 
 export const rolesData: Record<string, RoleData> = {
   familia: {
@@ -97,7 +101,6 @@ export default function Home() {
 
   const currentRole = rolesData[role];
   
-  // Título e subtítulo dinâmicos da Topbar
   const screenTitle = screen === "dashboard" 
     ? (role === "familia" ? "Meu caso familiar" : rolesData[role].nav[0][2])
     : (currentRole.nav.find(n => n[0] === screen)?.[2] || currentRole.label);
@@ -105,6 +108,23 @@ export default function Home() {
   const screenSubtitle = screen === "dashboard"
     ? (role === "familia" ? "Organize cada etapa com clareza e segurança." : `Visão adaptada para ${currentRole.org}.`)
     : "Tudo que você precisa para conduzir este fluxo.";
+
+  const renderScreen = () => {
+    switch (screen) {
+      case "dashboard": return <DashboardView role={role as string} setScreen={setScreen} />;
+      case "clients":
+      case "people": return <ClientsView role={role as string} />;
+      case "cases": return <CasesView role={role as string} />;
+      case "tasks": return <TasksView role={role as string} />;
+      case "documents": return <DocumentsView role={role as string} />;
+      default:
+        return (
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
+            O módulo <b>{screen}</b> está sendo desenvolvido.
+          </div>
+        );
+    }
+  };
 
   return (
     <div className="flex min-h-screen" style={{ "--accent": currentRole.accent } as React.CSSProperties}>
@@ -124,13 +144,7 @@ export default function Home() {
           subtitle={screenSubtitle} 
         />
 
-        {screen === "dashboard" ? (
-          <DashboardView role={role as string} setScreen={setScreen} />
-        ) : (
-          <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
-            Página {screen} em construção...
-          </div>
-        )}
+        {renderScreen()}
       </main>
     </div>
   );
