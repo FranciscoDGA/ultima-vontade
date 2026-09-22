@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 import { Sidebar, RoleData } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 import DashboardView from "@/components/views/DashboardView";
@@ -97,8 +99,29 @@ export const rolesData: Record<string, RoleData> = {
 };
 
 export default function Home() {
+  const router = useRouter();
   const [role, setRole] = useState<keyof typeof rolesData>("familia");
   const [screen, setScreen] = useState("dashboard");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login");
+      } else {
+        setLoading(false);
+      }
+    };
+    
+    checkAuth();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) router.push("/login");
+    });
+
+    return () => subscription.unsubscribe();
+  }, [router]);
 
   const currentRole = rolesData[role];
   
@@ -127,6 +150,10 @@ export default function Home() {
         );
     }
   };
+
+  if (loading) {
+    return <div className="min-h-screen bg-bg flex items-center justify-center text-navy font-bold">Carregando workspace...</div>;
+  }
 
   return (
     <div className="flex min-h-screen" style={{ "--accent": currentRole.accent } as React.CSSProperties}>

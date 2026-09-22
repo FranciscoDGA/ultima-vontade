@@ -9,10 +9,16 @@ interface TopbarProps {
   roleKey: string;
 }
 
+import { supabase } from "@/lib/supabase";
+
 export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
   const [showProfile, setShowProfile] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [showNew, setShowNew] = useState(false);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
     <>
@@ -51,8 +57,8 @@ export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
             {showProfile && (
               <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-line overflow-hidden z-50">
                 <div className="p-3 border-b border-line bg-gray-50/50">
-                  <p className="text-sm font-bold text-navy">Ana Souza</p>
-                  <p className="text-xs text-muted">ana.souza@email.com</p>
+                  <p className="text-sm font-bold text-navy">Usuário</p>
+                  <p className="text-xs text-muted">Acesso autenticado</p>
                 </div>
                 <div className="p-1">
                   <button className="flex w-full items-center gap-2 px-3 py-2 text-sm text-navy hover:bg-gray-50 rounded-lg text-left">
@@ -62,7 +68,10 @@ export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
                     <Settings size={14} className="text-muted" /> Preferências
                   </button>
                   <hr className="my-1 border-line" />
-                  <button className="flex w-full items-center gap-2 px-3 py-2 text-sm text-danger hover:bg-red-50 rounded-lg text-left font-semibold">
+                  <button 
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 px-3 py-2 text-sm text-danger hover:bg-red-50 rounded-lg text-left font-semibold"
+                  >
                     <LogOut size={14} /> Sair da conta
                   </button>
                 </div>
