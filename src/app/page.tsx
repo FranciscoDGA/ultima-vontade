@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Sidebar, RoleData } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
+import DashboardView from "@/components/views/DashboardView";
 
-const rolesData: Record<string, RoleData> = {
+export const rolesData: Record<string, RoleData> = {
   familia: {
     label: "Família",
     org: "Ana Souza · Família",
@@ -95,35 +96,41 @@ export default function Home() {
   const [screen, setScreen] = useState("dashboard");
 
   const currentRole = rolesData[role];
+  
+  // Título e subtítulo dinâmicos da Topbar
+  const screenTitle = screen === "dashboard" 
+    ? (role === "familia" ? "Meu caso familiar" : rolesData[role].nav[0][2])
+    : (currentRole.nav.find(n => n[0] === screen)?.[2] || currentRole.label);
+    
+  const screenSubtitle = screen === "dashboard"
+    ? (role === "familia" ? "Organize cada etapa com clareza e segurança." : `Visão adaptada para ${currentRole.org}.`)
+    : "Tudo que você precisa para conduzir este fluxo.";
 
   return (
     <div className="flex min-h-screen" style={{ "--accent": currentRole.accent } as React.CSSProperties}>
-      <Sidebar currentRole={currentRole} screen={screen} setScreen={setScreen} />
+      <Sidebar 
+        currentRole={currentRole} 
+        currentRoleKey={role as string}
+        screen={screen} 
+        setScreen={setScreen} 
+        setRole={setRole}
+        availableRoles={rolesData}
+      />
 
       <main className="ml-[255px] w-[calc(100%-255px)] p-7 pb-14">
         <Topbar 
           currentRole={currentRole} 
-          title="Meu caso familiar" 
-          subtitle="Organize cada etapa com clareza e segurança." 
+          title={screenTitle} 
+          subtitle={screenSubtitle} 
         />
 
-        <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
-          Página {screen} em construção...
-          <div className="mt-4 flex justify-center gap-2">
-            {Object.keys(rolesData).map((r) => (
-              <button
-                key={r}
-                onClick={() => {
-                  setRole(r as keyof typeof rolesData);
-                  setScreen("dashboard");
-                }}
-                className={`px-3 py-1 rounded text-xs ${role === r ? 'bg-navy text-white' : 'bg-gray-100'}`}
-              >
-                Mudar para {r}
-              </button>
-            ))}
+        {screen === "dashboard" ? (
+          <DashboardView role={role as string} setScreen={setScreen} />
+        ) : (
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
+            Página {screen} em construção...
           </div>
-        </div>
+        )}
       </main>
     </div>
   );
