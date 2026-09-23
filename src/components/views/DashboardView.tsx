@@ -1,7 +1,13 @@
 import React from "react";
 import { Users, FileText, CheckCircle2, Clock, AlertCircle, PhoneCall, Link2, Plus, Mail, FileBarChart, ArrowRight, UserPlus, AlertTriangle } from "lucide-react";
 
-export default function DashboardView({ role, setScreen }: { role: string, setScreen: (s: string) => void }) {
+interface DashboardProps {
+  role: string;
+  setScreen: (screen: string) => void;
+  setShowWizard?: (show: boolean) => void;
+}
+
+export default function DashboardView({ role, setScreen, setShowWizard }: DashboardProps) {
   if (role === "familia") {
     return (
       <div className="grid gap-6 max-w-4xl mx-auto animate-in fade-in">
@@ -191,7 +197,7 @@ export default function DashboardView({ role, setScreen }: { role: string, setSc
           <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
             <h3 className="text-lg font-bold text-navy mb-4">Ações Rápidas</h3>
             <div className="space-y-2">
-              <button className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+              <button onClick={() => setShowWizard && setShowWizard(true)} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
                 <Plus size={16} className="text-accent"/> Abrir Novo Caso
               </button>
               <button onClick={() => setScreen("clients")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">

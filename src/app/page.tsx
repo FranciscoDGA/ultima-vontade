@@ -139,7 +139,7 @@ export default function Home() {
 
   const renderScreen = () => {
     switch (screen) {
-      case "dashboard": return <DashboardView role={role as string} setScreen={setScreen} />;
+      case "dashboard": return <DashboardView role={role as string} setScreen={setScreen} setShowWizard={setShowWizard} />;
       case "clients":
       case "people": return <ClientsView role={role as string} />;
       case "cases": return <CasesView role={role as string} setShowWizard={setShowWizard} />;
