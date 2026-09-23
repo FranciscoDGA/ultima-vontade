@@ -164,16 +164,109 @@ export default function SettingsView({ role }: { role: string }) {
           </div>
         )}
 
-        {/* Other tabs can just show a placeholder for the MVP */}
-        {["team", "billing", "security"].includes(activeTab) && (
-          <div className="p-8 flex flex-col items-center justify-center flex-1 text-center h-full">
-            <div className="w-16 h-16 bg-gray-100 text-muted rounded-full flex items-center justify-center mb-4">
-              <Settings size={32} />
+        {activeTab === "team" && (
+          <div className="p-8 flex-1">
+            <h2 className="text-xl font-bold text-navy mb-2">Equipe e Permissões</h2>
+            <p className="text-muted text-sm mb-8">Defina quem pode acessar, editar e excluir informações do seu escritório.</p>
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 border border-line rounded-xl hover:border-accent transition-all cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-navy text-white flex items-center justify-center font-bold">RL</div>
+                  <div>
+                    <strong className="text-navy block">Dr. Rafael Lima</strong>
+                    <span className="text-sm text-muted">Sócio Administrador (Acesso Total)</span>
+                  </div>
+                </div>
+                <button className="text-accent text-sm font-bold">Editar Acesso</button>
+              </div>
+              
+              <div className="flex items-center justify-between p-4 border border-line rounded-xl hover:border-accent transition-all cursor-pointer">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-gray-200 text-muted flex items-center justify-center font-bold">MT</div>
+                  <div>
+                    <strong className="text-navy block">Marcela Teixeira</strong>
+                    <span className="text-sm text-muted">Advogada (Pode ver casos e documentos)</span>
+                  </div>
+                </div>
+                <button className="text-accent text-sm font-bold">Editar Acesso</button>
+              </div>
+              
+              <button className="mt-4 flex items-center gap-2 text-accent text-sm font-bold px-4 py-2 bg-[#f0edff] rounded-xl hover:bg-[#e0d9ff] transition-all">
+                + Adicionar Novo Membro
+              </button>
             </div>
-            <h2 className="text-xl font-bold text-navy mb-2">Módulo em Desenvolvimento</h2>
-            <p className="text-muted text-sm max-w-sm">
-              As configurações de {activeTab} estão sendo integradas na plataforma. Volte em breve.
-            </p>
+          </div>
+        )}
+
+        {activeTab === "billing" && (
+          <div className="p-8 flex-1">
+            <h2 className="text-xl font-bold text-navy mb-2">Faturamento e Assinatura</h2>
+            <p className="text-muted text-sm mb-8">Gerencie seu plano atual e métodos de pagamento.</p>
+            
+            <div className="bg-gradient-to-br from-[#f0edff] to-white border border-[#ded9ff] rounded-2xl p-6 mb-8">
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <span className="inline-block px-2 py-1 bg-accent text-white rounded-md text-[10px] font-bold uppercase tracking-wider mb-2">Plano Atual</span>
+                  <h3 className="text-2xl font-bold text-navy">Plano Profissional (Advocacia)</h3>
+                </div>
+                <div className="text-right">
+                  <strong className="text-3xl text-navy block">R$ 499<span className="text-lg text-muted font-normal">/mês</span></strong>
+                </div>
+              </div>
+              <p className="text-sm text-muted mb-4">Renovação automática em 10 de Novembro de 2026.</p>
+              <div className="flex gap-3">
+                <button className="bg-navy text-white px-4 py-2 rounded-xl text-sm font-bold hover:brightness-110">Alterar Plano</button>
+                <button className="bg-white border border-line text-navy px-4 py-2 rounded-xl text-sm font-bold hover:bg-gray-50">Cancelar Assinatura</button>
+              </div>
+            </div>
+            
+            <h3 className="text-lg font-bold text-navy mb-4">Últimas Faturas</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center p-4 border border-line rounded-xl">
+                <div>
+                  <strong className="text-navy block">Fatura #INV-2026-10</strong>
+                  <span className="text-sm text-muted">10 de Outubro de 2026</span>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-bold text-ok bg-ok/10 px-2 py-1 rounded-md">Pago</span>
+                  <button className="text-accent text-sm font-bold hover:underline">Baixar PDF</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "security" && (
+          <div className="p-8 flex-1">
+            <h2 className="text-xl font-bold text-navy mb-2">Privacidade e LGPD</h2>
+            <p className="text-muted text-sm mb-8">Controle as regras de conformidade com a Lei Geral de Proteção de Dados.</p>
+            
+            <div className="space-y-6">
+              <div className="p-4 border border-line rounded-xl flex items-start gap-4">
+                <input type="checkbox" className="mt-1 w-4 h-4 text-accent" defaultChecked />
+                <div>
+                  <h4 className="font-bold text-navy">Excluir dados após conclusão (LGPD Automática)</h4>
+                  <p className="text-sm text-muted">O sistema irá apagar automaticamente todos os documentos e arquivos vinculados ao caso 30 dias após ele ser marcado como concluído.</p>
+                </div>
+              </div>
+              
+              <div className="p-4 border border-line rounded-xl flex items-start gap-4">
+                <input type="checkbox" className="mt-1 w-4 h-4 text-accent" defaultChecked />
+                <div>
+                  <h4 className="font-bold text-navy">Log de Auditoria Rigoroso</h4>
+                  <p className="text-sm text-muted">Registrar absolutamente cada clique, visualização de documento e alteração para gerar um relatório em caso de disputas legais.</p>
+                </div>
+              </div>
+              
+              <div className="pt-4 border-t border-line">
+                <h3 className="text-lg font-bold text-danger mb-2">Zona de Perigo (Escritório)</h3>
+                <p className="text-sm text-muted mb-4">Ações irreversíveis que afetam toda a conta da Advocacia e seus clientes.</p>
+                <button className="px-4 py-2 bg-[#fff0f1] text-[#ce4e5d] font-bold rounded-xl border border-[#f5c2c7] hover:brightness-95 transition-all">
+                  Exportar e Excluir Conta do Escritório
+                </button>
+              </div>
+            </div>
           </div>
         )}
 

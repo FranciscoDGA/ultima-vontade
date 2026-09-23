@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { User, Search, Filter, MoreVertical, Plus, ChevronRight, Mail, Phone, Calendar } from "lucide-react";
 
 export default function ClientsView({ role }: { role: string }) {
+  const [activeTab, setActiveTab] = useState("Todos (124)");
+  const [showNewClient, setShowNewClient] = useState(false);
+
   if (role === "advocacia") {
     return (
       <div className="grid gap-6 animate-in fade-in">
@@ -14,7 +17,7 @@ export default function ClientsView({ role }: { role: string }) {
             <button className="bg-white border border-line text-navy px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50 flex items-center gap-2">
               <Filter size={16} /> Filtros
             </button>
-            <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+            <button onClick={() => setShowNewClient(true)} className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
               <Plus size={16} /> Novo Cliente
             </button>
           </div>
@@ -23,7 +26,10 @@ export default function ClientsView({ role }: { role: string }) {
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-2 rounded-2xl border border-line shadow-sm">
           <div className="flex gap-1 overflow-x-auto w-full md:w-auto">
             {["Todos (124)", "Ativos (89)", "Prioridade Alta", "Arquivados"].map((tab, i) => (
-              <button key={i} className={`px-4 py-2 text-sm font-bold rounded-xl whitespace-nowrap transition-colors ${i === 0 ? "bg-[#f0edff] text-accent" : "text-muted hover:bg-gray-50"}`}>
+              <button 
+                key={i} 
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 text-sm font-bold rounded-xl whitespace-nowrap transition-colors ${activeTab === tab ? "bg-[#f0edff] text-accent" : "text-muted hover:bg-gray-50"}`}>
                 {tab}
               </button>
             ))}
@@ -84,6 +90,41 @@ export default function ClientsView({ role }: { role: string }) {
             </tbody>
           </table>
         </div>
+
+        {showNewClient && (
+          <div className="fixed inset-0 bg-navy/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setShowNewClient(false)}>
+            <div className="bg-white rounded-2xl w-full max-w-lg p-6 shadow-2xl" onClick={e => e.stopPropagation()}>
+              <h2 className="text-xl font-bold text-navy mb-1">Cadastrar Cliente</h2>
+              <p className="text-sm text-muted mb-4">Insira os dados do novo cliente ou familiar.</p>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-[11px] font-[850] text-navy mb-1.5 uppercase tracking-wider">Nome Completo</label>
+                  <input type="text" className="w-full border border-[#dce3ec] rounded-lg p-2.5 text-sm outline-none focus:border-accent" placeholder="Ex: Ana Souza" />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-[11px] font-[850] text-navy mb-1.5 uppercase tracking-wider">WhatsApp</label>
+                    <input type="text" className="w-full border border-[#dce3ec] rounded-lg p-2.5 text-sm outline-none focus:border-accent" placeholder="(00) 00000-0000" />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-[850] text-navy mb-1.5 uppercase tracking-wider">E-mail</label>
+                    <input type="email" className="w-full border border-[#dce3ec] rounded-lg p-2.5 text-sm outline-none focus:border-accent" placeholder="email@exemplo.com" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2 mt-6 pt-4 border-t border-line">
+                <button onClick={() => setShowNewClient(false)} className="px-4 py-2 bg-gray-100 text-navy rounded-lg text-sm font-bold hover:bg-gray-200">
+                  Cancelar
+                </button>
+                <button onClick={() => setShowNewClient(false)} className="px-4 py-2 bg-accent text-white rounded-lg text-sm font-bold hover:brightness-110">
+                  Salvar Cliente
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

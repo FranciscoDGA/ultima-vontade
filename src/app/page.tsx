@@ -13,6 +13,7 @@ import DocumentsView from "@/components/views/DocumentsView";
 import AIView from "@/components/views/AIView";
 import PlansView from "@/components/views/PlansView";
 import SettingsView from "@/components/views/SettingsView";
+import TeamView from "@/components/views/TeamView";
 
 export const rolesData: Record<string, RoleData> = {
   familia: {
@@ -105,6 +106,7 @@ export default function Home() {
   const [role, setRole] = useState<keyof typeof rolesData>("familia");
   const [screen, setScreen] = useState("dashboard");
   const [loading, setLoading] = useState(true);
+  const [showWizard, setShowWizard] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -140,9 +142,10 @@ export default function Home() {
       case "dashboard": return <DashboardView role={role as string} setScreen={setScreen} />;
       case "clients":
       case "people": return <ClientsView role={role as string} />;
-      case "cases": return <CasesView role={role as string} />;
+      case "cases": return <CasesView role={role as string} setShowWizard={setShowWizard} />;
       case "tasks": return <TasksView role={role as string} />;
       case "documents": return <DocumentsView role={role as string} />;
+      case "team": return <TeamView role={role as string} />;
       case "ai": return <AIView role={role as string} />;
       case "plans": return <PlansView role={role as string} />;
       case "settings": return <SettingsView role={role as string} />;
@@ -176,6 +179,8 @@ export default function Home() {
           title={screenTitle} 
           subtitle={screenSubtitle} 
           roleKey={role as string}
+          showWizard={showWizard}
+          setShowWizard={setShowWizard}
         />
 
         {renderScreen()}

@@ -8,12 +8,13 @@ interface TopbarProps {
   title: string;
   subtitle: string;
   roleKey: string;
+  showWizard: boolean;
+  setShowWizard: (val: boolean) => void;
 }
 
-export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
+export function Topbar({ currentRole, title, subtitle, roleKey, showWizard, setShowWizard }: TopbarProps) {
   const [showProfile, setShowProfile] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [showWizard, setShowWizard] = useState(false);
   
   // Wizard state for Advocacia
   const [wizardStep, setWizardStep] = useState(1);

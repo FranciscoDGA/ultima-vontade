@@ -1,7 +1,7 @@
 import React from "react";
 import { FolderOpen, Search, Filter, Plus, ChevronRight, AlertCircle, Calendar } from "lucide-react";
 
-export default function CasesView({ role }: { role: string }) {
+export default function CasesView({ role, setShowWizard }: { role: string, setShowWizard?: (val: boolean) => void }) {
   if (role === "advocacia") {
     return (
       <div className="grid gap-6 animate-in fade-in">
@@ -14,7 +14,7 @@ export default function CasesView({ role }: { role: string }) {
             <button className="bg-white border border-line text-navy px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50 flex items-center gap-2">
               <Filter size={16} /> Filtros
             </button>
-            <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+            <button onClick={() => setShowWizard && setShowWizard(true)} className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
               <Plus size={16} /> Novo Caso
             </button>
           </div>
