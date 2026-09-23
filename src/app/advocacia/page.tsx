@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { ChevronRight, CheckCircle2, Shield, FolderOpen, Clock, Users, ArrowRight, MessageSquare, AlertCircle, FileText, CheckCircle, Smartphone, Lock } from "lucide-react";
