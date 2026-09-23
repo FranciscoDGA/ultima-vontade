@@ -146,6 +146,9 @@ export default function SettingsView({ role }: { role: string }) {
           <button onClick={() => setActiveTab("team")} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-left ${activeTab === "team" ? "bg-white text-accent shadow-sm border border-line" : "text-muted hover:bg-gray-100 hover:text-navy"}`}>
             <Users size={18} /> Equipe e Acessos
           </button>
+          <button onClick={() => setActiveTab("integrations")} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-left ${activeTab === "integrations" ? "bg-white text-accent shadow-sm border border-line" : "text-muted hover:bg-gray-100 hover:text-navy"}`}>
+            <Globe size={18} /> Integrações e APIs
+          </button>
           <button onClick={() => setActiveTab("billing")} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-left ${activeTab === "billing" ? "bg-white text-accent shadow-sm border border-line" : "text-muted hover:bg-gray-100 hover:text-navy"}`}>
             <CreditCard size={18} /> Faturamento
           </button>
@@ -231,6 +234,55 @@ export default function SettingsView({ role }: { role: string }) {
               <button className="mt-4 flex items-center gap-2 text-accent text-sm font-bold px-4 py-2 bg-[#f0edff] rounded-xl hover:bg-[#e0d9ff] transition-all">
                 <span className="font-bold text-xl">+</span> Adicionar Novo Membro
               </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "integrations" && (
+          <div className="p-8 flex-1">
+            <h2 className="text-xl font-bold text-navy mb-2">Integrações e APIs</h2>
+            <p className="text-muted text-sm mb-8">Gerencie a conexão da plataforma com seus sistemas corporativos.</p>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white border border-line rounded-2xl p-6 shadow-sm">
+                <h3 className="font-bold text-navy mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-lg bg-[#f0edff] text-accent flex items-center justify-center"><CreditCard size={16}/></span>
+                  Integração de Core Bancário / Seguros
+                </h3>
+                <p className="text-sm text-muted mb-4">Sincronização diária de produtos, seguros e investimentos vinculados.</p>
+                <div className="bg-gray-50 border border-line rounded-xl p-4 mb-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-xs font-bold text-navy">Status: Conectado</span>
+                    <span className="text-xs font-bold text-ok bg-ok/10 px-2 py-1 rounded-md">Ativo</span>
+                  </div>
+                  <span className="text-xs text-muted block">Última sincronização: Há 2 horas</span>
+                </div>
+                <button className="w-full font-bold text-navy bg-gray-100 hover:bg-gray-200 py-2.5 rounded-xl transition-colors">
+                  Configurar Conexão
+                </button>
+              </div>
+
+              <div className="bg-white border border-line rounded-2xl p-6 shadow-sm">
+                <h3 className="font-bold text-navy mb-4 flex items-center gap-2">
+                  <span className="w-8 h-8 rounded-lg bg-[#f0edff] text-accent flex items-center justify-center"><Lock size={16}/></span>
+                  Chaves de API
+                </h3>
+                <p className="text-sm text-muted mb-4">Gerencie as chaves para criar casos automaticamente via sistema próprio.</p>
+                
+                <div className="space-y-3 mb-4">
+                  <div className="flex justify-between items-center border-b border-line pb-3">
+                    <div>
+                      <span className="text-sm font-bold text-navy block">Portal de Agências (Prod)</span>
+                      <span className="text-xs text-muted">Criada em 10/05/2026</span>
+                    </div>
+                    <button className="text-xs font-bold text-navy bg-gray-100 px-3 py-1.5 rounded-lg">Gerar Nova</button>
+                  </div>
+                </div>
+                
+                <button className="w-full text-accent font-bold hover:underline text-sm flex justify-center items-center gap-1">
+                  Ver Documentação da API
+                </button>
+              </div>
             </div>
           </div>
         )}

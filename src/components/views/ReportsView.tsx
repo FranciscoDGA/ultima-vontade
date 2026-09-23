@@ -1,5 +1,5 @@
 import React from "react";
-import { BarChart3, TrendingUp, PieChart, Activity, Users, Clock, DollarSign, Download, Filter, Calendar } from "lucide-react";
+import { BarChart3, TrendingUp, PieChart, Activity, Users, Clock, DollarSign, Download, Filter, Calendar, ShieldAlert, Star } from "lucide-react";
 
 export default function ReportsView({ role }: { role: string }) {
   if (role === "funeraria") {
@@ -245,6 +245,110 @@ export default function ReportsView({ role }: { role: string }) {
     );
   }
 
+  if (role === "banco") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Relatórios Gerenciais</h2>
+            <p className="text-sm text-muted">Acompanhe tempo médio, volume de casos e métricas de risco jurídico.</p>
+          </div>
+          <div className="flex gap-2">
+            <button className="bg-white border border-line text-navy px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50 flex items-center gap-2">
+              <Calendar size={16} /> Mês Atual
+            </button>
+            <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+              <Download size={16} /> Exportar Relatório
+            </button>
+          </div>
+        </div>
+
+        {/* KPIs */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <Activity size={16} className="text-muted" />
+              <span className="text-[11px] text-muted font-[850] uppercase tracking-wider">Solicitações Concluídas</span>
+            </div>
+            <strong className="text-2xl text-navy block mb-1">2.410</strong>
+            <span className="text-xs text-ok font-bold">+8% vs mês anterior</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <Clock size={16} className="text-muted" />
+              <span className="text-[11px] text-muted font-[850] uppercase tracking-wider">Tempo Médio Global</span>
+            </div>
+            <strong className="text-2xl text-navy block mb-1">14 dias</strong>
+            <span className="text-xs text-ok font-bold">-2 dias (Melhoria)</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <ShieldAlert size={16} className="text-muted" />
+              <span className="text-[11px] text-muted font-[850] uppercase tracking-wider">Casos de Risco (Compliance)</span>
+            </div>
+            <strong className="text-2xl text-danger block mb-1">42</strong>
+            <span className="text-xs text-danger font-bold text-[#ce4e5d]">Acima da média aceitável</span>
+          </div>
+          <div className="bg-gradient-to-br from-[#f0edff] to-white border border-[#ded9ff] rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <Star size={16} className="text-accent" />
+              <span className="text-[11px] text-accent font-[850] uppercase tracking-wider">NPS Herdeiros</span>
+            </div>
+            <strong className="text-2xl text-accent block mb-1">82</strong>
+            <span className="text-xs text-accent font-bold">Zona de Excelência</span>
+          </div>
+        </div>
+
+        {/* Charts Mock */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+            <h3 className="font-bold text-navy mb-4 flex items-center gap-2"><BarChart3 size={18}/> Volume por Produto</h3>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between text-sm mb-1"><span className="font-bold text-navy">Contas e Investimentos</span><span className="text-muted">65%</span></div>
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-accent w-[65%]"></div></div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1"><span className="font-bold text-navy">Seguros e Previdência</span><span className="text-muted">25%</span></div>
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-accent w-[25%] opacity-80"></div></div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1"><span className="font-bold text-navy">Crédito e Financiamentos</span><span className="text-muted">10%</span></div>
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-accent w-[10%] opacity-60"></div></div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+            <h3 className="font-bold text-navy mb-4 flex items-center gap-2"><PieChart size={18}/> Agências com maior volume</h3>
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-line">
+                  <th className="py-2 text-xs text-muted font-bold">Agência</th>
+                  <th className="py-2 text-xs text-muted font-bold text-right">Qtd. Solicitações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-line">
+                  <td className="py-2 text-sm text-navy font-bold">Ag 0001 (Digital)</td>
+                  <td className="py-2 text-sm text-muted text-right">8.420</td>
+                </tr>
+                <tr className="border-b border-line">
+                  <td className="py-2 text-sm text-navy font-bold">Ag 0451 (Faria Lima)</td>
+                  <td className="py-2 text-sm text-muted text-right">3.120</td>
+                </tr>
+                <tr>
+                  <td className="py-2 text-sm text-navy font-bold">Ag 1205 (Paulista)</td>
+                  <td className="py-2 text-sm text-muted text-right">1.840</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Advocacia
   return (
     <div className="grid gap-6 animate-in fade-in">
@@ -270,4 +374,3 @@ export default function ReportsView({ role }: { role: string }) {
 }
 
 // Need Star component from lucide-react if missing, we import it
-import { Star } from "lucide-react";

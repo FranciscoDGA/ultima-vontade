@@ -320,6 +320,97 @@ export default function DocumentsView({ role }: { role: string }) {
     );
   }
 
+  if (role === "banco") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Validação Documental</h2>
+            <p className="text-sm text-muted">Receba, analise e aprove os documentos legais (certidões, alvarás, inventários).</p>
+          </div>
+          <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+            <Upload size={16} /> Fazer Upload
+          </button>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-2 rounded-2xl border border-line shadow-sm">
+          <div className="flex gap-1 overflow-x-auto w-full md:w-auto">
+            {["Para Análise", "Certidões de Óbito", "Inventários/Alvarás", "Documentos de Identidade", "Comprovantes", "Aprovados"].map((tab, i) => (
+              <button key={i} className={`px-4 py-2 text-sm font-bold rounded-xl whitespace-nowrap transition-colors ${i === 0 ? "bg-[#f0edff] text-accent" : "text-muted hover:bg-gray-50"}`}>
+                {tab}
+              </button>
+            ))}
+          </div>
+          <div className="relative w-full md:w-64">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={16} />
+            <input type="text" placeholder="Buscar documento..." className="w-full bg-gray-50 border border-line rounded-xl py-2 pl-9 pr-3 text-sm focus:border-accent outline-none" />
+          </div>
+        </div>
+
+        <div className="bg-white border border-line rounded-2xl shadow-sm overflow-hidden">
+          <table className="w-full text-left border-collapse min-w-[800px]">
+            <thead>
+              <tr className="bg-gray-50 border-b border-line">
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Arquivo</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Tipo Documental</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Protocolo Vinculado</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Data de Envio</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Validação / Status</th>
+                <th className="py-3 px-5"></th>
+              </tr>
+            </thead>
+            <tbody className="text-sm">
+              <tr className="border-b border-line hover:bg-gray-50/50 cursor-pointer transition-colors group">
+                <td className="py-4 px-5">
+                  <div className="flex items-center gap-3">
+                    <FileText size={20} className="text-muted" />
+                    <strong className="text-navy">Certidão_Obito_RobertoA.pdf</strong>
+                  </div>
+                </td>
+                <td className="py-4 px-5 text-muted">Certidão de Óbito</td>
+                <td className="py-4 px-5 text-navy text-xs">
+                  <strong className="block">SOL-2026-9912</strong>
+                  <span className="text-muted">Roberto Almeida</span>
+                </td>
+                <td className="py-4 px-5 text-muted">Hoje, 10:45</td>
+                <td className="py-4 px-5">
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-[#a87200] bg-[#fff6e3] px-2 py-1 rounded-md">Pendente Conferência Legal</span>
+                </td>
+                <td className="py-4 px-5 text-right">
+                  <button className="p-2 text-muted hover:text-navy opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Download size={18} />
+                  </button>
+                </td>
+              </tr>
+              <tr className="border-b border-line hover:bg-gray-50/50 cursor-pointer transition-colors group">
+                <td className="py-4 px-5">
+                  <div className="flex items-center gap-3">
+                    <AlertCircle size={20} className="text-[#ce4e5d]" />
+                    <strong className="text-[#ce4e5d]">Escritura_Incompleta.pdf</strong>
+                  </div>
+                </td>
+                <td className="py-4 px-5 text-muted">Inventário Extrajudicial</td>
+                <td className="py-4 px-5 text-navy text-xs">
+                  <strong className="block">SOL-2026-9912</strong>
+                  <span className="text-muted">Roberto Almeida</span>
+                </td>
+                <td className="py-4 px-5 text-muted">Ontem, 16:30</td>
+                <td className="py-4 px-5">
+                  <span className="inline-flex items-center gap-1 text-xs font-bold text-[#ce4e5d] bg-[#fff0f1] px-2 py-1 rounded-md">Rejeitado: Faltam Assinaturas</span>
+                </td>
+                <td className="py-4 px-5 text-right">
+                  <button className="p-2 text-muted hover:text-navy opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Upload size={18} />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
       Em construção para {role}

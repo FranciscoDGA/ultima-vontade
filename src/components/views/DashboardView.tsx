@@ -1,5 +1,5 @@
 import React from "react";
-import { Users, FileText, CheckCircle2, Clock, AlertCircle, PhoneCall, Link2, Plus, Mail, FileBarChart, ArrowRight, UserPlus, AlertTriangle, FolderOpen } from "lucide-react";
+import { Users, FileText, CheckCircle2, Clock, AlertCircle, PhoneCall, Link2, Plus, Mail, FileBarChart, ArrowRight, UserPlus, AlertTriangle, FolderOpen, Briefcase, ShieldAlert } from "lucide-react";
 
 interface DashboardProps {
   role: string;
@@ -384,6 +384,104 @@ export default function DashboardView({ role, setScreen, setShowWizard }: Dashbo
               </button>
               <button onClick={() => setScreen("reports")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
                 <FileBarChart size={16} className="text-accent"/> Métricas Operacionais
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (role === "banco") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Central de Atendimento Sucessório</h2>
+            <p className="text-sm text-muted">Acompanhe as solicitações ativas, documentos pendentes e o tempo de resposta da sua agência.</p>
+          </div>
+          <button onClick={() => setShowWizard && setShowWizard(true)} className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+            <Plus size={16} /> Nova Solicitação
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-1">Solicitações Abertas</span>
+            <strong className="text-2xl text-navy block mb-1">4.281</strong>
+            <span className="text-xs text-danger font-bold text-[#ce4e5d]">+15% este mês</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-1">Aguardando Documento</span>
+            <strong className="text-2xl text-navy block mb-1">1.105</strong>
+            <span className="text-xs text-muted font-bold">25% do total</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-1">Tempo Médio (SLA)</span>
+            <strong className="text-2xl text-navy block mb-1">18 dias</strong>
+            <span className="text-xs text-ok font-bold">Na meta corporativa</span>
+          </div>
+          <div className="bg-gradient-to-br from-[#fff0f1] to-white border border-[#f5c2c7] rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-[#ce4e5d] font-[850] uppercase tracking-wider block mb-1">Casos Críticos (Procon/Bacen)</span>
+            <strong className="text-2xl text-danger block mb-1">32</strong>
+            <span className="text-xs text-danger font-bold">Atenção imediata</span>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-[1fr_300px] gap-6">
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+            <h3 className="font-bold text-navy mb-4 flex items-center gap-2"><Briefcase size={18}/> Solicitações por Produto (Top 3)</h3>
+            <div className="space-y-4">
+              <div className="p-4 border border-line rounded-xl flex items-center justify-between hover:border-accent transition-colors">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                    <Briefcase size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-navy text-sm">Levantamento de Investimentos (CDB/LCI)</h4>
+                    <p className="text-xs text-muted mt-0.5">2.140 solicitações ativas</p>
+                  </div>
+                </div>
+                <button className="text-accent text-sm font-bold hover:underline">Ver fila</button>
+              </div>
+              <div className="p-4 border border-line rounded-xl flex items-center justify-between hover:border-accent transition-colors">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold">
+                    <Briefcase size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-navy text-sm">Transferência de Saldo (Conta Corrente)</h4>
+                    <p className="text-xs text-muted mt-0.5">1.520 solicitações ativas</p>
+                  </div>
+                </div>
+                <button className="text-accent text-sm font-bold hover:underline">Ver fila</button>
+              </div>
+              <div className="p-4 border border-line rounded-xl flex items-center justify-between hover:border-accent transition-colors">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold">
+                    <Briefcase size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-navy text-sm">Seguro Prestamista (Financiamentos)</h4>
+                    <p className="text-xs text-muted mt-0.5">854 solicitações ativas</p>
+                  </div>
+                </div>
+                <button className="text-accent text-sm font-bold hover:underline">Ver fila</button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6 flex flex-col">
+            <h3 className="font-bold text-navy mb-4 flex items-center gap-2"><Clock size={18}/> Ações Rápidas</h3>
+            <div className="space-y-3 flex-1">
+              <button onClick={() => setScreen("documents")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <FileText size={16} className="text-accent"/> Validar Ofícios
+              </button>
+              <button onClick={() => setScreen("tasks")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <AlertTriangle size={16} className="text-accent"/> Pendências Jurídicas
+              </button>
+              <button onClick={() => setScreen("team")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <ShieldAlert size={16} className="text-accent"/> Acessar Logs (Auditoria)
               </button>
             </div>
           </div>

@@ -467,6 +467,123 @@ export default function TasksView({ role }: { role: string }) {
     );
   }
 
+  if (role === "banco") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Pendências e Tratativas</h2>
+            <p className="text-sm text-muted">Documentos faltantes, análise jurídica e aprovações internas necessárias.</p>
+          </div>
+          <div className="flex gap-2">
+            <div className="bg-white border border-line rounded-xl p-1 flex">
+              <button onClick={() => setViewMode("lista")} className={`px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold transition-colors ${viewMode === "lista" ? "bg-gray-100 text-navy" : "text-muted hover:bg-gray-50"}`}><List size={14}/> Lista</button>
+              <button onClick={() => setViewMode("kanban")} className={`px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold transition-colors ${viewMode === "kanban" ? "bg-gray-100 text-navy" : "text-muted hover:bg-gray-50"}`}><Kanban size={14}/> Kanban</button>
+            </div>
+            <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+              <Plus size={16} /> Nova Tratativa
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-2 rounded-2xl border border-line shadow-sm">
+          <div className="flex gap-1 overflow-x-auto w-full md:w-auto">
+            {["Todas", "Análise Jurídica", "Falta Documento", "Divergência", "Aprovação Gerencial"].map((tab, i) => (
+              <button key={i} className={`px-4 py-2 text-sm font-bold rounded-xl whitespace-nowrap transition-colors ${i === 0 ? "bg-[#f0edff] text-accent" : "text-muted hover:bg-gray-50"}`}>
+                {tab}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white border border-line rounded-2xl shadow-sm overflow-hidden">
+          <table className="w-full text-left border-collapse min-w-[800px]">
+            <thead>
+              <tr className="bg-gray-50 border-b border-line">
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Descrição</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Protocolo Vinculado</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Responsável</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">SLA</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Status</th>
+                <th className="py-3 px-5"></th>
+              </tr>
+            </thead>
+            <tbody className="text-sm">
+              <tr className="border-b border-line hover:bg-gray-50/50 cursor-pointer transition-colors group">
+                <td className="py-4 px-5">
+                  <div className="flex items-start gap-3">
+                    <input type="checkbox" className="mt-1" />
+                    <div>
+                      <strong className="text-navy block">Validar Escritura Pública (Sem Inventariante)</strong>
+                      <span className="text-[10px] text-[#a87200] font-bold uppercase tracking-wider mt-1 block flex items-center gap-1">
+                        <AlertCircle size={10}/> Risco Jurídico
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-4 px-5">
+                  <strong className="text-navy block text-xs">SOL-2026-9912</strong>
+                </td>
+                <td className="py-4 px-5">
+                  <div className="flex items-center gap-2 text-navy text-xs">
+                    <div className="w-6 h-6 rounded-full bg-navy text-white flex items-center justify-center text-[10px] font-bold">JUR</div>
+                    Depto Jurídico
+                  </div>
+                </td>
+                <td className="py-4 px-5 text-xs font-bold text-navy">
+                  Vence amanhã
+                </td>
+                <td className="py-4 px-5">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#fff6e3] text-[#a87200] text-[10px] font-bold uppercase tracking-wider">
+                    Em Análise
+                  </span>
+                </td>
+                <td className="py-4 px-5 text-right">
+                  <button className="p-2 text-muted hover:text-navy opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ChevronRight size={18} />
+                  </button>
+                </td>
+              </tr>
+              
+              <tr className="border-b border-line hover:bg-gray-50/50 cursor-pointer transition-colors group">
+                <td className="py-4 px-5">
+                  <div className="flex items-start gap-3">
+                    <input type="checkbox" className="mt-1" />
+                    <div>
+                      <strong className="text-navy block">Procuração Vencida / Inválida</strong>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-4 px-5">
+                  <strong className="text-navy block text-xs">SOL-2026-9915</strong>
+                </td>
+                <td className="py-4 px-5">
+                  <div className="flex items-center gap-2 text-navy text-xs">
+                    <div className="w-6 h-6 rounded-full bg-gray-200 text-muted flex items-center justify-center text-[10px] font-bold">AT</div>
+                    Atendimento
+                  </div>
+                </td>
+                <td className="py-4 px-5 text-xs font-bold text-[#ce4e5d]">
+                  Estourado (+2d)
+                </td>
+                <td className="py-4 px-5">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#f0edff] text-accent text-[10px] font-bold uppercase tracking-wider">
+                    Aguardando Cliente
+                  </span>
+                </td>
+                <td className="py-4 px-5 text-right">
+                  <button className="p-2 text-muted hover:text-navy opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ChevronRight size={18} />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
       Em construção para {role}

@@ -87,6 +87,89 @@ export default function AIView({ role }: { role: string }) {
     );
   }
 
+  if (role === "banco") {
+    return (
+      <div className="flex flex-col md:flex-row gap-6 animate-in fade-in h-[calc(100vh-140px)]">
+        <div className="w-full md:w-80 bg-white border border-line rounded-3xl shadow-sm flex flex-col overflow-hidden shrink-0">
+          <div className="p-6 border-b border-line bg-[#f0edff]/30">
+            <h2 className="text-xl font-bold text-navy mb-1 flex items-center gap-2">
+              <Bot size={20} className="text-accent" />
+              IA Sucessória
+            </h2>
+            <p className="text-xs text-muted">Configure o nível de atuação da inteligência artificial para processos do banco.</p>
+          </div>
+
+          <div className="p-6 overflow-y-auto flex-1 space-y-6">
+            <div>
+              <h3 className="text-sm font-bold text-navy mb-3">Triagem e Compliance</h3>
+              <div className="space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex items-start">
+                    <input type="checkbox" className="peer sr-only" defaultChecked />
+                    <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent"></div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-navy block">Extrair Dados de Inventário</span>
+                    <span className="text-xs text-muted block mt-0.5">Mapeia herdeiros, bens e valores automaticamente.</span>
+                  </div>
+                </label>
+                
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex items-start">
+                    <input type="checkbox" className="peer sr-only" defaultChecked />
+                    <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent"></div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-navy block">Alerta de Fraude e Divergência</span>
+                    <span className="text-xs text-muted block mt-0.5">Cruza dados do óbito com CPFs para apontar inconsistências.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold text-navy mb-3">Atendimento e Automação</h3>
+              <div className="space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex items-start">
+                    <input type="checkbox" className="peer sr-only" defaultChecked />
+                    <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent"></div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-navy block">Redigir Respostas (Rascunho)</span>
+                    <span className="text-xs text-muted block mt-0.5">Cria minutas de ofícios e e-mails para aprovação.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between items-center bg-gray-50 p-4 border-t border-line">
+            <span className="text-xs font-bold text-muted">Testando versão: v1.1.0</span>
+            <button className="bg-accent text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md hover:brightness-110">
+              Salvar
+            </button>
+          </div>
+        </div>
+
+        <div className="flex-1 bg-white border border-line rounded-3xl shadow-sm flex flex-col overflow-hidden">
+          <div className="p-6 border-b border-line">
+            <h3 className="font-bold text-navy flex items-center gap-2"><Sparkles size={18}/> Simulador Jurídico</h3>
+          </div>
+          <div className="flex-1 p-6 flex flex-col">
+            <label className="block text-[11px] font-[850] text-navy mb-2 uppercase tracking-wider">Testar Parecer da IA</label>
+            <textarea 
+              className="w-full flex-1 border border-line rounded-xl p-4 text-sm outline-none focus:border-accent resize-none mb-4"
+              placeholder="Ex: Cole o texto de um ofício judicial aqui para a IA extrair a ordem de transferência..."
+            ></textarea>
+            <button className="w-full bg-[#c0b2ec] hover:bg-accent text-white py-3 rounded-xl font-bold transition-colors">
+              Processar Texto
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (role === "advocacia") {
     return (
       <div className="grid gap-6 animate-in fade-in h-[calc(100vh-140px)]">
