@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Palette, Globe, Mail, ShieldAlert, Users, CreditCard, Save, Settings, Lock } from "lucide-react";
+import { Palette, Globe, Mail, ShieldAlert, Users, CreditCard, Save, Settings, Lock, Plus } from "lucide-react";
 
 export default function SettingsView({ role }: { role: string }) {
   const isFamily = role === "familia";
