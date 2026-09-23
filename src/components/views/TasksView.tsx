@@ -1,183 +1,98 @@
 import React, { useState } from "react";
-import { CheckCircle2, Clock, AlertCircle, FileText, Upload, Info } from "lucide-react";
+import { CheckCircle2, Clock, AlertCircle, Upload, Info, Calendar, Kanban, List, Filter, Plus, ChevronRight } from "lucide-react";
 
 export default function TasksView({ role }: { role: string }) {
+  const [viewMode, setViewMode] = useState("lista");
   const [selectedTask, setSelectedTask] = useState(false);
-  const isFamily = role === "familia";
-  const title = isFamily ? "Meu plano de providências" : "Tarefas e prazos";
-  
-  const [tasks, setTasks] = useState([
-    { t: "Confirmar cobertura do seguro de vida", s: "Seguros · vence em 3 dias", urgent: true, done: false },
-    { t: "Solicitar encerramento da conta corrente", s: "Bancos · vence em 5 dias", urgent: false, done: false },
-    { t: "Separar documentos dos dependentes", s: "Benefícios · vence em 8 dias", urgent: false, done: false },
-    { t: "Cancelar assinatura de streaming", s: "Serviços · concluída ontem", urgent: false, done: true },
-  ]);
 
-  const toggleTask = (index: number) => {
-    const newTasks = [...tasks];
-    newTasks[index].done = !newTasks[index].done;
-    setTasks(newTasks);
-  };
-
-  const familyTasks = [
-    {
-      title: "Solicitar encerramento da conta corrente",
-      category: "Bancos",
-      reason: "Evitar cobrança de taxas e proteger o saldo para o inventário.",
-      assignee: "Marcos Souza (Filho)",
-      deadline: "28/09/2026",
-      docs: "Certidão de Óbito, RG do Herdeiro",
-      status: "Aguardando protocolo",
-      protocol: "",
-      nextAction: "Ir à agência bancária com os documentos impressos.",
-      statusColor: "bg-[#fff6e3] text-[#a87200]"
-    },
-    {
-      title: "Dar entrada no Seguro de Vida",
-      category: "Seguros",
-      reason: "Garantir o recebimento da indenização para cobrir custos imediatos.",
-      assignee: "Ana Souza (Cônjuge)",
-      deadline: "Hoje",
-      docs: "Apólice, Certidão de Óbito original",
-      status: "Urgente",
-      protocol: "-",
-      nextAction: "Ligar para corretora Seguros S/A",
-      statusColor: "bg-[#fff0f1] text-[#ce4e5d]"
-    },
-    {
-      title: "Cancelar plano de internet",
-      category: "Assinaturas e Contas",
-      reason: "Evitar débitos automáticos.",
-      assignee: "Marcos Souza",
-      deadline: "15/10/2026",
-      docs: "Fatura recente",
-      status: "Concluído",
-      protocol: "202688991234",
-      nextAction: "-",
-      statusColor: "bg-[#eaf8f5] text-[#078b7d]"
-    }
-  ];
-
-  if (isFamily) {
+  if (role === "familia") {
     return (
-      <div className="grid gap-6 animate-in fade-in">
-        <div className="flex justify-between items-end">
+      <div className="grid gap-6 max-w-4xl mx-auto animate-in fade-in">
+        <div className="bg-gradient-to-br from-[#f0edff] to-white border border-[#ded9ff] p-6 rounded-2xl shadow-sm flex items-start gap-4">
+          <div className="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center shrink-0">
+            <CheckCircle2 size={24} />
+          </div>
           <div>
-            <h2 className="text-2xl font-bold text-navy mb-2">Meu Plano</h2>
-            <p className="text-muted text-sm max-w-xl">
-              Organize todas as etapas financeiras, jurídicas e administrativas pós-falecimento. Acompanhe os responsáveis e prazos.
+            <h2 className="text-xl font-bold text-navy mb-2">Seu Plano de Providências</h2>
+            <p className="text-sm text-[#665d88] leading-relaxed">
+              Aqui estão as tarefas que você precisa realizar. Tudo foi organizado de forma simples para que você saiba exatamente <b>o que fazer</b>, <b>por que fazer</b> e <b>quando entregar</b>. Clique em uma tarefa para ver os detalhes.
             </p>
           </div>
-          <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110">
-            + Adicionar Tarefa
-          </button>
         </div>
 
-        {/* Filters */}
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-          {["Todos", "Documentos civis", "Bancos", "Seguros", "Imóveis", "Veículos", "Dívidas", "Inventário"].map(cat => (
-            <button key={cat} className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold border ${cat === 'Todos' ? 'bg-navy text-white border-navy' : 'bg-white text-navy border-line hover:border-accent'}`}>
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Tasks List */}
-        <div className="grid gap-4">
-          {familyTasks.map((task, idx) => (
-            <div key={idx} className="bg-white border border-line rounded-2xl p-5 shadow-sm hover:border-accent transition-colors cursor-pointer" onClick={() => setSelectedTask(true)}>
-              <div className="flex justify-between items-start mb-3">
-                <div className="flex items-center gap-3">
-                  <div className={`w-3 h-3 rounded-full ${task.status === 'Concluído' ? 'bg-ok' : task.status === 'Urgente' ? 'bg-danger' : 'bg-[#a87200]'}`}></div>
-                  <h3 className="text-[16px] font-bold text-navy m-0">{task.title}</h3>
-                </div>
-                <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase ${task.statusColor}`}>
-                  {task.status}
-                </span>
+        <div className="space-y-4">
+          <div 
+            onClick={() => setSelectedTask(true)}
+            className="bg-white border border-line rounded-2xl shadow-sm p-5 cursor-pointer hover:border-accent transition-colors group relative overflow-hidden"
+          >
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#ce4e5d]"></div>
+            
+            <div className="flex justify-between items-start mb-3 pl-3">
+              <div>
+                <span className="inline-block px-2 py-1 bg-gray-100 text-muted rounded-md text-[10px] font-bold uppercase tracking-wider mb-2">Bancos e Finanças</span>
+                <h3 className="text-navy font-bold text-[16px] group-hover:text-accent transition-colors">Solicitar Extrato Bancário</h3>
               </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm">
-                <div>
-                  <span className="block text-[11px] font-bold text-muted uppercase tracking-wider mb-1">Categoria</span>
-                  <span className="text-navy font-medium">{task.category}</span>
-                </div>
-                <div>
-                  <span className="block text-[11px] font-bold text-muted uppercase tracking-wider mb-1">Responsável</span>
-                  <div className="flex items-center gap-1.5 text-navy font-medium">
-                    <div className="w-5 h-5 rounded-full bg-[#f0edff] text-accent flex items-center justify-center text-[10px]">{task.assignee.charAt(0)}</div>
-                    {task.assignee}
-                  </div>
-                </div>
-                <div>
-                  <span className="block text-[11px] font-bold text-muted uppercase tracking-wider mb-1">Prazo</span>
-                  <span className="text-navy font-medium">{task.deadline}</span>
-                </div>
-                <div>
-                  <span className="block text-[11px] font-bold text-muted uppercase tracking-wider mb-1">Docs Necessários</span>
-                  <span className="text-navy font-medium flex items-center gap-1"><FileText size={14} className="text-muted"/> Ver lista</span>
-                </div>
-              </div>
+              <span className="bg-[#fff0f1] text-[#ce4e5d] px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                <AlertCircle size={14}/> Urgente
+              </span>
             </div>
-          ))}
+
+            <div className="pl-3 grid grid-cols-3 gap-4 text-xs text-muted font-bold">
+              <span className="flex items-center gap-1"><Info size={14}/> Por que? Para calcular imposto.</span>
+              <span className="flex items-center gap-1"><Clock size={14}/> Vence amanhã</span>
+              <span className="flex items-center gap-1">👤 Resp: Marcos</span>
+            </div>
+          </div>
         </div>
 
-        {/* Task Detail Modal (simulated) */}
         {selectedTask && (
-          <div className="fixed inset-0 bg-navy/60 z-50 flex items-center justify-end" onClick={() => setSelectedTask(false)}>
-            <div className="bg-white h-full w-full max-w-md shadow-2xl animate-in slide-in-from-right overflow-y-auto" onClick={e => e.stopPropagation()}>
-              <div className="p-6 border-b border-line bg-gray-50 flex justify-between items-center sticky top-0 z-10">
-                <h3 className="text-lg font-bold text-navy">Detalhes da Tarefa</h3>
-                <button onClick={() => setSelectedTask(false)} className="text-muted hover:text-navy font-bold">Fechar</button>
+          <div className="fixed inset-0 bg-navy/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setSelectedTask(false)}>
+            <div className="bg-white rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()}>
+              <div className="p-6 border-b border-line bg-gray-50/50">
+                <span className="inline-block px-2 py-1 bg-gray-100 text-muted rounded-md text-[10px] font-bold uppercase tracking-wider mb-3">Bancos e Finanças</span>
+                <h2 className="text-2xl font-bold text-navy mb-2">Solicitar Extrato Bancário e Cancelar Cartões</h2>
+                <div className="flex gap-4 text-sm text-muted font-bold">
+                  <span className="flex items-center gap-1 text-[#ce4e5d]"><AlertCircle size={16}/> Vence amanhã (25 Out)</span>
+                  <span className="flex items-center gap-1">👤 Responsável: Marcos (Filho)</span>
+                </div>
               </div>
-              
+
               <div className="p-6 space-y-6">
                 <div>
-                  <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#fff6e3] text-[#a87200] mb-3`}>
-                    Aguardando Protocolo
-                  </span>
-                  <h2 className="text-xl font-bold text-navy">Solicitar encerramento da conta corrente</h2>
-                  <p className="text-muted text-sm mt-2 flex gap-2"><Info size={16} className="text-accent shrink-0"/> Evitar cobrança de taxas e proteger o saldo para o inventário.</p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 p-4 bg-gray-50 rounded-xl border border-line">
-                  <div>
-                    <label className="text-[10px] font-bold text-muted uppercase tracking-wider block mb-1">Responsável</label>
-                    <span className="text-sm font-semibold text-navy">Marcos Souza</span>
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-bold text-muted uppercase tracking-wider block mb-1">Prazo</label>
-                    <span className="text-sm font-semibold text-danger">28/09/2026</span>
-                  </div>
+                  <h4 className="font-[850] text-navy text-xs uppercase tracking-wider mb-2">Por que eu preciso fazer isso?</h4>
+                  <p className="text-sm text-muted bg-gray-50 p-4 rounded-xl">O extrato bancário do dia exato do falecimento é obrigatório por lei para que o advogado consiga calcular os impostos (ITCMD) e fazer a partilha dos valores nas contas.</p>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold text-navy mb-3">Documentos Necessários</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between p-3 border border-line rounded-lg">
-                      <div className="flex items-center gap-2 text-sm text-navy"><CheckCircle2 size={16} className="text-ok"/> Certidão de Óbito</div>
-                      <span className="text-xs text-ok font-bold">No Cofre</span>
-                    </div>
-                    <div className="flex items-center justify-between p-3 border border-[#f5c2c7] bg-[#fff0f1] rounded-lg">
-                      <div className="flex items-center gap-2 text-sm text-[#ce4e5d]"><AlertCircle size={16}/> RG do Herdeiro</div>
-                      <button className="text-xs font-bold bg-white text-[#ce4e5d] px-2 py-1 rounded border border-[#f5c2c7] hover:bg-[#ce4e5d] hover:text-white transition-colors">Fazer Upload</button>
-                    </div>
+                  <h4 className="font-[850] text-navy text-xs uppercase tracking-wider mb-2">Como fazer (Passo a passo)</h4>
+                  <ol className="text-sm text-muted space-y-3 list-decimal list-inside">
+                    <li>Vá até a agência do Banco do Brasil com a Certidão de Óbito original.</li>
+                    <li>Apresente seu documento de identidade (RG ou CNH).</li>
+                    <li>Solicite o <b>Extrato da Conta Corrente e Poupança da data de 10/10/2026</b>.</li>
+                    <li>Peça o bloqueio e cancelamento dos cartões de crédito.</li>
+                  </ol>
+                </div>
+
+                <div className="border border-dashed border-[#dce3ec] rounded-2xl p-6 text-center bg-gray-50/50">
+                  <div className="w-12 h-12 bg-[#f0edff] text-accent rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Upload size={20} />
+                  </div>
+                  <h4 className="font-bold text-navy text-sm mb-1">Anexar Protocolos e Extratos</h4>
+                  <p className="text-xs text-muted mb-4">Tire uma foto ou escaneie o extrato entregue pelo banco.</p>
+                  <div className="flex justify-center gap-2">
+                    <button className="bg-white border border-line text-navy px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50">Tirar Foto</button>
+                    <button className="bg-accent text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md hover:brightness-110">Procurar Arquivo</button>
                   </div>
                 </div>
+              </div>
 
-                <div>
-                  <h4 className="text-sm font-bold text-navy mb-3">Próxima Ação</h4>
-                  <p className="text-sm text-muted bg-[#f0edff] p-4 rounded-xl border border-[#ded9ff]">
-                    Ir à agência bancária com os documentos impressos e solicitar o protocolo de atendimento.
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="text-sm font-bold text-navy mb-2">Comprovante / Protocolo</h4>
-                  <input type="text" placeholder="Digite o nº do protocolo" className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none text-sm mb-2" />
-                  <button className="flex items-center justify-center gap-2 w-full py-3 border border-dashed border-gray-400 rounded-xl text-muted text-sm font-bold hover:bg-gray-50 transition-colors">
-                    <Upload size={16} /> Anexar Comprovante
-                  </button>
-                </div>
+              <div className="p-4 border-t border-line bg-gray-50 flex justify-end gap-2">
+                <button onClick={() => setSelectedTask(false)} className="px-5 py-2.5 bg-white border border-line text-navy rounded-xl text-sm font-bold hover:bg-gray-100">
+                  Fechar
+                </button>
+                <button onClick={() => setSelectedTask(false)} className="px-5 py-2.5 bg-accent text-white rounded-xl text-sm font-bold shadow-md hover:brightness-110">
+                  Marcar como Concluída
+                </button>
               </div>
             </div>
           </div>
@@ -186,49 +101,137 @@ export default function TasksView({ role }: { role: string }) {
     );
   }
 
-  // --- Advocacia / Corporativo View ---
-  return (
-    <div className="grid gap-4">
-      <div className="flex justify-between items-center gap-4 flex-wrap mb-2">
-        <div>
-          <h2 className="m-0 text-navy text-[18px] font-bold">Tarefas e prazos</h2>
-          <p className="mt-1 text-muted text-[12px]">O sistema sugere etapas; a equipe confirma, atribui e registra evidências.</p>
-        </div>
-        <button className="bg-accent text-white px-3.5 py-2.5 rounded-[9px] text-[12px] font-[800]">
-          + Nova tarefa
-        </button>
-      </div>
-
-      <div className="flex gap-2 mb-2 flex-wrap">
-        <button className="px-3 py-2 rounded-lg text-[11px] bg-[#eaf1ff] border border-[#d7e4ff] text-accent font-[850]">Todas</button>
-        <button className="px-3 py-2 rounded-lg text-[11px] bg-white border border-line text-muted">Urgentes</button>
-        <button className="px-3 py-2 rounded-lg text-[11px] bg-white border border-line text-muted">Minhas</button>
-        <button className="px-3 py-2 rounded-lg text-[11px] bg-white border border-line text-muted">Concluídas</button>
-      </div>
-
-      <div className="bg-white border border-line rounded-2xl shadow-sm">
-        {tasks.map((task, i) => (
-          <div key={i} className="grid grid-cols-[25px_1fr_auto] items-center gap-3 p-4 border-t border-[#eef1f5] first:border-t-0">
-            <button 
-              onClick={() => toggleTask(i)}
-              className={`w-[18px] h-[18px] border-2 rounded-[5px] text-[11px] grid place-items-center transition-colors ${
-                task.done ? "bg-ok border-ok text-white" : "bg-white border-[#cad5e4] text-white"
-              }`}
-            >
-              {task.done ? "✓" : ""}
-            </button>
-            <div>
-              <b className="text-[12px] text-navy block">{task.t}</b>
-              <small className="text-[10px] text-muted block mt-1">{task.s}</small>
-            </div>
-            <span className={`inline-block px-2 py-1 rounded-full text-[10px] font-[850] whitespace-nowrap ${
-              task.done ? "bg-[#eef1f5] text-[#7b8799]" : task.urgent ? "bg-[#fff0f1] text-[#ce4e5d]" : "bg-[#eaf8f5] text-[#078b7d]"
-            }`}>
-              {task.done ? "Concluída" : task.urgent ? "Urgente" : "No prazo"}
-            </span>
+  if (role === "advocacia") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Tarefas e Prazos</h2>
+            <p className="text-sm text-muted">Acompanhe a fila de trabalho da equipe, prazos legais e pendências.</p>
           </div>
-        ))}
+          <div className="flex gap-2">
+            <div className="bg-white border border-line rounded-xl p-1 flex">
+              <button onClick={() => setViewMode("lista")} className={`px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold transition-colors ${viewMode === "lista" ? "bg-gray-100 text-navy" : "text-muted hover:bg-gray-50"}`}><List size={14}/> Lista</button>
+              <button onClick={() => setViewMode("kanban")} className={`px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold transition-colors ${viewMode === "kanban" ? "bg-gray-100 text-navy" : "text-muted hover:bg-gray-50"}`}><Kanban size={14}/> Kanban</button>
+              <button onClick={() => setViewMode("calendario")} className={`px-3 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold transition-colors ${viewMode === "calendario" ? "bg-gray-100 text-navy" : "text-muted hover:bg-gray-50"}`}><Calendar size={14}/> Calendário</button>
+            </div>
+            <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+              <Plus size={16} /> Nova Tarefa
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-2 rounded-2xl border border-line shadow-sm">
+          <div className="flex gap-1 overflow-x-auto w-full md:w-auto">
+            {["Todas (56)", "Minhas Tarefas (14)", "Atrasadas (3)", "Da Semana", "Por Cliente"].map((tab, i) => (
+              <button key={i} className={`px-4 py-2 text-sm font-bold rounded-xl whitespace-nowrap transition-colors ${i === 0 ? "bg-[#f0edff] text-accent" : "text-muted hover:bg-gray-50"}`}>
+                {tab}
+              </button>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            <button className="bg-gray-50 border border-line text-navy px-4 py-2 rounded-xl text-sm font-bold hover:bg-gray-100 flex items-center gap-2">
+              <Filter size={16} /> Status
+            </button>
+            <button className="bg-gray-50 border border-line text-navy px-4 py-2 rounded-xl text-sm font-bold hover:bg-gray-100 flex items-center gap-2">
+              <Filter size={16} /> Advogado
+            </button>
+          </div>
+        </div>
+
+        <div className="bg-white border border-line rounded-2xl shadow-sm overflow-hidden">
+          <table className="w-full text-left border-collapse min-w-[800px]">
+            <thead>
+              <tr className="bg-gray-50 border-b border-line">
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Tarefa</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Caso / Cliente</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Prazo</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Atribuído a</th>
+                <th className="py-3 px-5 text-[11px] font-[850] uppercase text-muted tracking-wider">Status</th>
+                <th className="py-3 px-5"></th>
+              </tr>
+            </thead>
+            <tbody className="text-sm">
+              <tr className="border-b border-line hover:bg-gray-50/50 cursor-pointer transition-colors group">
+                <td className="py-4 px-5">
+                  <div className="flex items-start gap-3">
+                    <input type="checkbox" className="mt-1" />
+                    <div>
+                      <strong className="text-navy block">Emitir guias do ITCMD</strong>
+                      <span className="text-[10px] text-danger font-bold uppercase tracking-wider mt-1 block flex items-center gap-1">
+                        <AlertCircle size={10}/> Prioridade Alta
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-4 px-5">
+                  <strong className="text-navy block text-xs">Inventário Extrajudicial</strong>
+                  <span className="text-xs text-muted">Família Costa</span>
+                </td>
+                <td className="py-4 px-5 text-[#ce4e5d] text-xs font-bold flex items-center gap-1">
+                  <Calendar size={14}/> Vence Hoje
+                </td>
+                <td className="py-4 px-5">
+                  <div className="flex items-center gap-2 text-navy text-xs">
+                    <div className="w-6 h-6 rounded-full bg-navy text-white flex items-center justify-center text-[10px] font-bold">RL</div>
+                    Dr. Rafael Lima
+                  </div>
+                </td>
+                <td className="py-4 px-5">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#f0edff] text-accent text-[10px] font-bold uppercase tracking-wider">
+                    Em Andamento
+                  </span>
+                </td>
+                <td className="py-4 px-5 text-right">
+                  <button className="p-2 text-muted hover:text-navy opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ChevronRight size={18} />
+                  </button>
+                </td>
+              </tr>
+              
+              <tr className="border-b border-line hover:bg-gray-50/50 cursor-pointer transition-colors group">
+                <td className="py-4 px-5">
+                  <div className="flex items-start gap-3">
+                    <input type="checkbox" className="mt-1" />
+                    <div>
+                      <strong className="text-navy block">Revisar Minuta de Partilha</strong>
+                    </div>
+                  </div>
+                </td>
+                <td className="py-4 px-5">
+                  <strong className="text-navy block text-xs">Testamento e Partilha</strong>
+                  <span className="text-xs text-muted">Marcos Almeida</span>
+                </td>
+                <td className="py-4 px-5 text-muted text-xs font-bold flex items-center gap-1">
+                  <Calendar size={14}/> Amanhã
+                </td>
+                <td className="py-4 px-5">
+                  <div className="flex items-center gap-2 text-navy text-xs">
+                    <div className="w-6 h-6 rounded-full bg-gray-200 text-muted flex items-center justify-center text-[10px] font-bold">MT</div>
+                    Marcela Teixeira
+                  </div>
+                </td>
+                <td className="py-4 px-5">
+                  <span className="inline-block px-3 py-1 rounded-full bg-[#fff6e3] text-[#a87200] text-[10px] font-bold uppercase tracking-wider">
+                    Pendente
+                  </span>
+                </td>
+                <td className="py-4 px-5 text-right">
+                  <button className="p-2 text-muted hover:text-navy opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ChevronRight size={18} />
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
+      Em construção para {role}
     </div>
   );
 }
