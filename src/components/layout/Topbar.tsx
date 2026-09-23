@@ -13,33 +13,72 @@ interface TopbarProps {
 export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
   const [showProfile, setShowProfile] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
-  const [showNew, setShowNew] = useState(false);
+  const [showWizard, setShowWizard] = useState(false);
   
   // Wizard state for Advocacia
   const [wizardStep, setWizardStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
+  
+  // Form State
+  const [formData, setFormData] = useState({
+    nome: "",
+    cpf: "",
+    bens: [] as string[]
+  });
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    window.location.href = "/login";
   };
 
-  const handleNextStep = () => {
-    if (wizardStep === 2) {
+  const handleNextStep = async () => {
+    if (wizardStep === 1) {
+      setWizardStep(2);
+    } else if (wizardStep === 2) {
       setIsGenerating(true);
+      
+      try {
+        // Fetch current user and their company ID
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('company_id')
+            .eq('id', user.id)
+            .single();
+
+          if (profile?.company_id) {
+            // Insert the new case into Supabase
+            const caseTitle = formData.nome ? `Inventário - ${formData.nome}` : 'Novo Caso Gerado por IA';
+            await supabase
+              .from('cases')
+              .insert([
+                {
+                  company_id: profile.company_id,
+                  title: caseTitle,
+                  status: 'Aguardando',
+                  progress: 0
+                }
+              ]);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to create case", err);
+      }
+      
+      // Simulate AI loading delay for the UI experience
       setTimeout(() => {
         setIsGenerating(false);
         setWizardStep(3);
-      }, 2000); // simulate AI generating the model
-    } else {
-      setWizardStep(w => w + 1);
+      }, 2500);
     }
   };
 
   const resetWizard = () => {
-    setShowNew(false);
+    setShowWizard(false);
     setTimeout(() => {
       setWizardStep(1);
-      setIsGenerating(false);
+      setFormData({ nome: "", cpf: "", bens: [] });
     }, 300);
   };
 
@@ -63,7 +102,7 @@ export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
             <HelpCircle size={16} /> Ajuda
           </button>
           <button 
-            onClick={() => setShowNew(true)}
+            onClick={() => setShowWizard(true)}
             className="flex items-center gap-1.5 bg-accent text-white shadow-[0_7px_16px_#2f6fed2b] px-3.5 py-2.5 rounded-[9px] text-[12px] font-[800] hover:brightness-110 transition-all"
           >
             <Plus size={16} /> {roleKey === 'advocacia' ? "Novo Caso" : "Novo"}
@@ -133,7 +172,7 @@ export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
       )}
 
       {/* Novo Registro Modal / Smart Onboarding */}
-      {showNew && (
+      {showWizard && (
         <div className="fixed inset-0 bg-navy/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm" onClick={resetWizard}>
           <div className="bg-white rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]" onClick={e => e.stopPropagation()}>
             {roleKey === 'advocacia' ? (
@@ -158,7 +197,13 @@ export function Topbar({ currentRole, title, subtitle, roleKey }: TopbarProps) {
                       <h3 className="text-sm font-[850] text-navy uppercase tracking-wider mb-4 border-b border-line pb-2">1. Dados do Cliente e Família</h3>
                       <div>
                         <label className="block text-[11px] font-[850] text-navy mb-1.5 uppercase tracking-wider">Nome da Família / Cliente Principal</label>
-                        <input type="text" className="w-full border border-[#dce3ec] rounded-lg p-2.5 text-sm outline-none focus:border-accent" placeholder="Ex: Família Silva ou João da Silva" />
+                        <input 
+                          type="text" 
+                          value={formData.nome}
+                          onChange={(e) => setFormData(prev => ({...prev, nome: e.target.value}))}
+                          className="w-full border border-[#dce3ec] rounded-lg p-2.5 text-sm outline-none focus:border-accent" 
+                          placeholder="Ex: Família Silva ou João da Silva" 
+                        />
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
