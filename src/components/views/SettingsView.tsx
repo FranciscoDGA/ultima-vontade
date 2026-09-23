@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Palette, Globe, Mail, ShieldAlert, Users, CreditCard, Save, Settings } from "lucide-react";
+import { Palette, Globe, Mail, ShieldAlert, Users, CreditCard, Save, Settings, Lock } from "lucide-react";
 
 export default function SettingsView({ role }: { role: string }) {
   const isFamily = role === "familia";
@@ -48,105 +48,141 @@ export default function SettingsView({ role }: { role: string }) {
             </div>
           </div>
 
-          <div className="pt-6 border-t border-line mt-8">
-            <h3 className="text-lg font-bold text-danger mb-2">Zona de Perigo</h3>
-            <p className="text-sm text-muted mb-4">Ações irreversíveis relacionadas ao seu processo.</p>
-            <div className="flex gap-3">
-              <button className="px-4 py-2 bg-white text-[#ce4e5d] font-bold rounded-lg border border-[#f5c2c7] hover:bg-[#fff0f1] transition-all">
-                Solicitar Encerramento do Caso
+          <div className="pt-6 border-t border-line">
+            <h3 className="text-lg font-bold text-danger mb-2 text-[#ce4e5d]">Zona de Perigo</h3>
+            <p className="text-sm text-muted mb-4">Ao excluir sua conta, todos os documentos sob seu controle serão removidos. Documentos já protocolados com o escritório não serão apagados do sistema deles.</p>
+            <button className="px-4 py-2 bg-[#fff0f1] text-[#ce4e5d] font-bold rounded-xl border border-[#f5c2c7] hover:brightness-95 transition-all">
+              Excluir Minha Conta Permanentemente
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-8 flex justify-end">
+          <button className="flex items-center gap-2 bg-accent text-white px-6 py-3 rounded-xl font-bold shadow-md hover:brightness-110">
+            <Save size={18} /> Salvar Alterações
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (role === "seguradora") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Integrações e APIs</h2>
+            <p className="text-sm text-muted">Gerencie a conexão da plataforma com seus sistemas internos.</p>
+          </div>
+          <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+            <Plus size={16} /> Nova Integração
+          </button>
+        </div>
+
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-2 rounded-2xl border border-line shadow-sm mb-2">
+          <div className="flex gap-1 overflow-x-auto w-full md:w-auto">
+            {["APIs de Sinistro", "CRM (Salesforce/Dynamics)", "Webhooks", "Pagamentos"].map((tab, i) => (
+              <button key={i} className={`px-4 py-2 text-sm font-bold rounded-xl whitespace-nowrap transition-colors ${i === 0 ? "bg-[#f0edff] text-accent" : "text-muted hover:bg-gray-50"}`}>
+                {tab}
               </button>
-              <button className="px-4 py-2 bg-[#fff0f1] text-[#ce4e5d] font-bold rounded-lg border border-[#f5c2c7] hover:brightness-95 transition-all">
-                Excluir Conta (LGPD)
-              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white border border-line rounded-2xl p-6 shadow-sm">
+            <h3 className="font-bold text-navy mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-[#f0edff] text-accent flex items-center justify-center"><CreditCard size={16}/></span>
+              Integração de Apólices (Core Seguros)
+            </h3>
+            <p className="text-sm text-muted mb-4">Sincronização diária de novos segurados, renovações e cancelamentos.</p>
+            <div className="bg-gray-50 border border-line rounded-xl p-4 mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-bold text-navy">Status: Conectado</span>
+                <span className="text-xs font-bold text-ok bg-ok/10 px-2 py-1 rounded-md">Ativo</span>
+              </div>
+              <span className="text-xs text-muted block">Última sincronização: Há 2 horas</span>
             </div>
+            <button className="w-full font-bold text-navy bg-gray-100 hover:bg-gray-200 py-2.5 rounded-xl transition-colors">
+              Configurar Conexão
+            </button>
+          </div>
+
+          <div className="bg-white border border-line rounded-2xl p-6 shadow-sm">
+            <h3 className="font-bold text-navy mb-4 flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-[#f0edff] text-accent flex items-center justify-center"><Lock size={16}/></span>
+              Chaves de API
+            </h3>
+            <p className="text-sm text-muted mb-4">Gerencie as chaves para criar casos e sinistros via sistema próprio.</p>
+            
+            <div className="space-y-3 mb-4">
+              <div className="flex justify-between items-center border-b border-line pb-3">
+                <div>
+                  <span className="text-sm font-bold text-navy block">Portal de Corretores (Prod)</span>
+                  <span className="text-xs text-muted">Criada em 10/05/2026</span>
+                </div>
+                <button className="text-xs font-bold text-navy bg-gray-100 px-3 py-1.5 rounded-lg">Gerar Nova</button>
+              </div>
+            </div>
+            
+            <button className="w-full text-accent font-bold hover:underline text-sm flex justify-center items-center gap-1">
+              Ver Documentação da API
+            </button>
           </div>
         </div>
       </div>
     );
   }
 
-  // Corporative Settings (White Label, etc)
+  // Advocacia / Funeraria Settings
   return (
-    <div className="grid grid-cols-[250px_1fr] gap-8 h-full min-h-[600px] animate-in fade-in">
-      {/* Settings Sidebar */}
-      <div className="flex flex-col gap-2">
-        <button 
-          onClick={() => setActiveTab("whitelabel")}
-          className={`flex items-center gap-3 p-3 rounded-xl text-sm font-bold transition-all ${activeTab === "whitelabel" ? "bg-accent text-white shadow-md" : "text-navy hover:bg-gray-100"}`}
-        >
-          <Palette size={18} /> Aparência (White Label)
-        </button>
-        <button 
-          onClick={() => setActiveTab("domain")}
-          className={`flex items-center gap-3 p-3 rounded-xl text-sm font-bold transition-all ${activeTab === "domain" ? "bg-accent text-white shadow-md" : "text-navy hover:bg-gray-100"}`}
-        >
-          <Globe size={18} /> Domínio Personalizado
-        </button>
-        <button 
-          onClick={() => setActiveTab("team")}
-          className={`flex items-center gap-3 p-3 rounded-xl text-sm font-bold transition-all ${activeTab === "team" ? "bg-accent text-white shadow-md" : "text-navy hover:bg-gray-100"}`}
-        >
-          <Users size={18} /> Equipe e Permissões
-        </button>
-        <button 
-          onClick={() => setActiveTab("billing")}
-          className={`flex items-center gap-3 p-3 rounded-xl text-sm font-bold transition-all ${activeTab === "billing" ? "bg-accent text-white shadow-md" : "text-navy hover:bg-gray-100"}`}
-        >
-          <CreditCard size={18} /> Faturamento e Assinatura
-        </button>
-        <button 
-          onClick={() => setActiveTab("security")}
-          className={`flex items-center gap-3 p-3 rounded-xl text-sm font-bold transition-all ${activeTab === "security" ? "bg-accent text-white shadow-md" : "text-navy hover:bg-gray-100"}`}
-        >
-          <ShieldAlert size={18} /> Privacidade e LGPD
-        </button>
+    <div className="flex flex-col md:flex-row gap-6 animate-in fade-in">
+      <div className="w-full md:w-64 shrink-0">
+        <h2 className="text-2xl font-bold text-navy mb-6 px-2">Configurações</h2>
+        <div className="flex flex-col gap-1">
+          <button onClick={() => setActiveTab("whitelabel")} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-left ${activeTab === "whitelabel" ? "bg-white text-accent shadow-sm border border-line" : "text-muted hover:bg-gray-100 hover:text-navy"}`}>
+            <Palette size={18} /> Marca e Domínio
+          </button>
+          <button onClick={() => setActiveTab("team")} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-left ${activeTab === "team" ? "bg-white text-accent shadow-sm border border-line" : "text-muted hover:bg-gray-100 hover:text-navy"}`}>
+            <Users size={18} /> Equipe e Acessos
+          </button>
+          <button onClick={() => setActiveTab("billing")} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-left ${activeTab === "billing" ? "bg-white text-accent shadow-sm border border-line" : "text-muted hover:bg-gray-100 hover:text-navy"}`}>
+            <CreditCard size={18} /> Faturamento
+          </button>
+          <button onClick={() => setActiveTab("security")} className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors text-left ${activeTab === "security" ? "bg-white text-accent shadow-sm border border-line" : "text-muted hover:bg-gray-100 hover:text-navy"}`}>
+            <ShieldAlert size={18} /> Segurança (LGPD)
+          </button>
+        </div>
       </div>
 
-      {/* Settings Content */}
-      <div className="bg-white rounded-3xl border border-line shadow-sm overflow-hidden flex flex-col">
+      <div className="flex-1 bg-white border border-line rounded-3xl shadow-sm flex flex-col">
         {activeTab === "whitelabel" && (
           <div className="p-8 flex-1">
-            <h2 className="text-xl font-bold text-navy mb-2">Personalização da Marca</h2>
-            <p className="text-muted text-sm mb-8">Deixe o portal com a identidade visual do seu escritório para a família.</p>
+            <h2 className="text-xl font-bold text-navy mb-2">Marca White Label</h2>
+            <p className="text-muted text-sm mb-8">Personalize o portal com a identidade visual da sua empresa.</p>
             
-            <div className="space-y-6 max-w-xl">
-              <div>
-                <label className="block text-sm font-bold text-navy mb-2">Nome do Portal (Área do Cliente)</label>
-                <input type="text" className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none" defaultValue="Área do Cliente — Lima & Associados" />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-bold text-navy mb-2">Logotipo Corporativo</label>
-                <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50 text-muted">
-                    <span className="text-xs font-bold uppercase">Upload</span>
-                  </div>
-                  <div className="text-sm text-muted">
-                    <p>Recomendado: PNG transparente, 400x100px.</p>
-                    <button className="text-accent font-bold mt-1">Escolher arquivo</button>
-                  </div>
+            <div className="grid grid-cols-2 gap-6 mb-6">
+              <div className="bg-gray-50 border border-line rounded-2xl p-6 flex flex-col items-center justify-center text-center gap-3 cursor-pointer hover:border-accent transition-all">
+                <div className="w-16 h-16 rounded-full bg-white border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400">
+                  <Palette size={24} />
+                </div>
+                <div>
+                  <strong className="text-navy text-sm block">Logotipo Principal</strong>
+                  <span className="text-xs text-muted">PNG ou SVG até 2MB</span>
                 </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-bold text-navy mb-2">Cor Principal (Brand Color)</label>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-[#7357c7] border border-line shadow-inner"></div>
-                  <input type="text" className="w-32 border border-line rounded-xl p-3 focus:border-accent outline-none font-mono" defaultValue="#7357c7" />
+              <div className="bg-gray-50 border border-line rounded-2xl p-6 flex flex-col justify-center">
+                <label className="block text-sm font-bold text-navy mb-2">Cor de Destaque (HEX)</label>
+                <div className="flex gap-3 items-center">
+                  <input type="color" defaultValue="#7357c7" className="w-12 h-12 rounded cursor-pointer border-0 p-0" />
+                  <input type="text" defaultValue="#7357c7" className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none text-navy font-mono uppercase" />
                 </div>
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-navy mb-2">Mensagem de Boas-vindas Padrão</label>
-                <textarea className="w-full border border-line rounded-xl p-3 focus:border-accent outline-none h-24 resize-none" defaultValue="Olá. Estamos aqui para ajudar. Seu processo de inventário está sendo conduzido com total segurança." />
               </div>
             </div>
-          </div>
-        )}
 
-        {activeTab === "domain" && (
-          <div className="p-8 flex-1">
-            <h2 className="text-xl font-bold text-navy mb-2">Domínio Customizado</h2>
+            <div className="h-px bg-line w-full my-8"></div>
+
+            <h2 className="text-xl font-bold text-navy mb-2">Domínio Personalizado</h2>
             <p className="text-muted text-sm mb-8">Permita que seus clientes acessem o portal pelo seu próprio site.</p>
             
             <div className="bg-gray-50 border border-line rounded-2xl p-6 mb-6">
@@ -193,7 +229,7 @@ export default function SettingsView({ role }: { role: string }) {
               </div>
               
               <button className="mt-4 flex items-center gap-2 text-accent text-sm font-bold px-4 py-2 bg-[#f0edff] rounded-xl hover:bg-[#e0d9ff] transition-all">
-                + Adicionar Novo Membro
+                <span className="font-bold text-xl">+</span> Adicionar Novo Membro
               </button>
             </div>
           </div>
@@ -228,9 +264,9 @@ export default function SettingsView({ role }: { role: string }) {
                   <strong className="text-navy block">Fatura #INV-2026-10</strong>
                   <span className="text-sm text-muted">10 de Outubro de 2026</span>
                 </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm font-bold text-ok bg-ok/10 px-2 py-1 rounded-md">Pago</span>
-                  <button className="text-accent text-sm font-bold hover:underline">Baixar PDF</button>
+                <div className="flex gap-2">
+                  <button className="text-navy font-bold text-sm bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-lg transition-colors">Editar</button>
+                  <button className="text-[#ce4e5d] font-bold text-sm bg-[#fff0f1] hover:bg-[#ffe5e7] px-3 py-1.5 rounded-lg transition-colors">Revogar</button>
                 </div>
               </div>
             </div>

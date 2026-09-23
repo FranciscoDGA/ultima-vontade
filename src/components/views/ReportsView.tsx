@@ -162,6 +162,89 @@ export default function ReportsView({ role }: { role: string }) {
     );
   }
 
+  if (role === "seguradora") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Métricas de Assistência e Sinistros</h2>
+            <p className="text-sm text-muted">Acompanhe utilização de benefícios, tempo de resolução, SLAs e custos.</p>
+          </div>
+          <div className="flex gap-2">
+            <button className="bg-white border border-line text-navy px-4 py-2.5 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50 flex items-center gap-2">
+              <Calendar size={16} /> Trimestre Atual
+            </button>
+            <button className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+              <Download size={16} /> Exportar Relatório
+            </button>
+          </div>
+        </div>
+
+        {/* KPIs */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <Activity size={16} className="text-muted" />
+              <span className="text-[11px] text-muted font-[850] uppercase tracking-wider">Sinistros Abertos</span>
+            </div>
+            <strong className="text-2xl text-navy block mb-1">1.842</strong>
+            <span className="text-xs text-danger font-bold text-[#ce4e5d]">+4% vs trimestre anterior</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <Clock size={16} className="text-muted" />
+              <span className="text-[11px] text-muted font-[850] uppercase tracking-wider">SLA Cumprido</span>
+            </div>
+            <strong className="text-2xl text-navy block mb-1">94.2%</strong>
+            <span className="text-xs text-ok font-bold">+2.1% (Acima da Meta)</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <DollarSign size={16} className="text-muted" />
+              <span className="text-[11px] text-muted font-[850] uppercase tracking-wider">Custo Médio/Caso</span>
+            </div>
+            <strong className="text-2xl text-navy block mb-1">R$ 14.500</strong>
+            <span className="text-xs text-muted font-bold">Estável</span>
+          </div>
+          <div className="bg-gradient-to-br from-[#f0edff] to-white border border-[#ded9ff] rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <Star size={16} className="text-accent" />
+              <span className="text-[11px] text-accent font-[850] uppercase tracking-wider">Satisfação do Segurado</span>
+            </div>
+            <strong className="text-2xl text-accent block mb-1">9.2/10</strong>
+            <span className="text-xs text-accent font-bold">NPS: 78</span>
+          </div>
+        </div>
+
+        {/* Charts Mock */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+            <h3 className="font-bold text-navy mb-4 flex items-center gap-2"><BarChart3 size={18}/> Acionamentos por Região</h3>
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between text-sm mb-1"><span className="font-bold text-navy">Sudeste</span><span className="text-muted">45%</span></div>
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-accent w-[45%]"></div></div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1"><span className="font-bold text-navy">Sul</span><span className="text-muted">28%</span></div>
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-accent w-[28%] opacity-80"></div></div>
+              </div>
+              <div>
+                <div className="flex justify-between text-sm mb-1"><span className="font-bold text-navy">Nordeste</span><span className="text-muted">18%</span></div>
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden"><div className="h-full bg-accent w-[18%] opacity-60"></div></div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6 flex flex-col items-center justify-center text-center">
+             <PieChart size={48} className="text-gray-200 mb-4" />
+             <h3 className="font-bold text-navy">Desempenho de Parceiros (TMA)</h3>
+             <p className="text-sm text-muted mt-2">Visualização detalhada em construção. <br/>Média de 48h para funerárias e 15 dias para escritórios.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Advocacia
   return (
     <div className="grid gap-6 animate-in fade-in">

@@ -1,38 +1,112 @@
 import React, { useState } from "react";
-import { Sparkles, Settings2, FileText, MessageSquare, Check, Bot } from "lucide-react";
+import { Bot, Sparkles, MessageSquare, Search, FileText, CheckCircle2 } from "lucide-react";
 
 export default function AIView({ role }: { role: string }) {
   const [checklist, setChecklist] = useState(true);
   const [resumir, setResumir] = useState(true);
   const [responder, setResponder] = useState(false);
 
-  if (role === "advocacia") {
+  if (role === "seguradora") {
     return (
-      <div className="grid gap-6 animate-in fade-in">
-        <div className="bg-[#f8f7ff] border border-[#ded9ff] p-6 rounded-2xl flex items-start gap-4">
-          <div className="w-12 h-12 rounded-full bg-white text-accent flex items-center justify-center shrink-0 shadow-sm">
-            <Sparkles size={24} />
+      <div className="flex flex-col md:flex-row gap-6 animate-in fade-in h-[calc(100vh-140px)]">
+        <div className="w-full md:w-80 bg-white border border-line rounded-3xl shadow-sm flex flex-col overflow-hidden shrink-0">
+          <div className="p-6 border-b border-line bg-[#f0edff]/30">
+            <h2 className="text-xl font-bold text-navy mb-1 flex items-center gap-2">
+              <Bot size={20} className="text-accent" />
+              IA de Sinistros
+            </h2>
+            <p className="text-xs text-muted">Configure o assistente automático para triagem e validação de documentos.</p>
           </div>
-          <div>
-            <h2 className="text-xl font-bold text-navy mb-2">Assistente de IA da Última Vontade</h2>
-            <p className="text-sm text-[#665d88] leading-relaxed max-w-3xl">
-              Configure o que a IA pode sugerir, quais fontes ela pode consultar e quando ela precisa de aprovação humana. As chaves do modelo (OpenAI/Gemini) ficam seguras no servidor (variáveis de ambiente).
-            </p>
+
+          <div className="p-6 overflow-y-auto flex-1 space-y-6">
+            <div>
+              <h3 className="text-sm font-bold text-navy mb-3">Triagem de Documentos</h3>
+              <div className="space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex items-start">
+                    <input type="checkbox" className="peer sr-only" defaultChecked />
+                    <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent"></div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-navy block">Extrair Dados de Apólices</span>
+                    <span className="text-xs text-muted block mt-0.5">Lê PDFs e preenche o formulário.</span>
+                  </div>
+                </label>
+                
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex items-start">
+                    <input type="checkbox" className="peer sr-only" defaultChecked />
+                    <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent"></div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-navy block">OCR em Certidão de Óbito</span>
+                    <span className="text-xs text-muted block mt-0.5">Alerta divergência de nomes/datas.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-bold text-navy mb-3">Atendimento ao Beneficiário</h3>
+              <div className="space-y-3">
+                <label className="flex items-start gap-3 cursor-pointer group">
+                  <div className="relative flex items-start">
+                    <input type="checkbox" className="peer sr-only" defaultChecked />
+                    <div className="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent"></div>
+                  </div>
+                  <div>
+                    <span className="text-sm font-bold text-navy block">Respostas via WhatsApp</span>
+                    <span className="text-xs text-muted block mt-0.5">Responde dúvidas sobre status.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between items-center bg-gray-50 p-4 border-t border-line">
+            <span className="text-xs font-bold text-muted">Testando versão: v1.0.2</span>
+            <button className="bg-accent text-white px-4 py-2 rounded-xl text-sm font-bold shadow-md hover:brightness-110">
+              Salvar
+            </button>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="flex-1 bg-white border border-line rounded-3xl shadow-sm flex flex-col overflow-hidden">
+          <div className="p-6 border-b border-line">
+            <h3 className="font-bold text-navy">Simulador de Triagem</h3>
+          </div>
+          <div className="flex-1 p-6 flex flex-col justify-center items-center text-center">
+            <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+              <FileText size={24} className="text-muted" />
+            </div>
+            <strong className="text-navy">Arraste um PDF (Apólice ou Certidão)</strong>
+            <p className="text-sm text-muted mt-2 max-w-sm">A IA de Sinistros processará o documento para demonstrar a extração automática de dados.</p>
+            <button className="mt-4 px-4 py-2 border border-line rounded-xl text-sm font-bold text-navy hover:bg-gray-50">Upload Manual</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (role === "advocacia") {
+    return (
+      <div className="grid gap-6 animate-in fade-in h-[calc(100vh-140px)]">
+        <div>
+          <h2 className="text-2xl font-bold text-navy mb-1">Assistente Jurídico (IA)</h2>
+          <p className="text-sm text-muted">Configure o nível de autonomia do Copiloto no seu escritório.</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 h-full pb-10">
           <div className="bg-white border border-line rounded-2xl shadow-sm overflow-hidden flex flex-col">
             <div className="p-6 border-b border-line">
-              <h3 className="font-bold text-navy flex items-center gap-2"><Settings2 size={18}/> Configuração do Agente</h3>
-              <p className="text-xs text-muted mt-1">Regras aplicadas a este workspace</p>
+              <h3 className="font-bold text-navy flex items-center gap-2"><CheckCircle2 size={18}/> Autonomia e Permissões</h3>
+              <p className="text-xs text-muted mt-1">O que a inteligência artificial tem permissão para fazer?</p>
             </div>
             
-            <div className="p-6 space-y-6 flex-1">
+            <div className="p-6 space-y-6">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h4 className="font-bold text-navy text-sm flex items-center gap-2"><Check size={16}/> Gerar checklist por tipo de caso</h4>
-                  <p className="text-xs text-muted mt-1">A IA sugere tarefas e documentos pendentes automaticamente para revisão humana.</p>
+                  <h4 className="font-bold text-navy text-sm flex items-center gap-2"><CheckCircle2 size={16}/> Gerar checklist inicial de documentos</h4>
+                  <p className="text-xs text-muted mt-1">Baseado no tipo do caso, a IA sugere os documentos vitais antes do primeiro atendimento.</p>
                 </div>
                 <div 
                   className={`w-12 h-6 rounded-full flex items-center p-1 cursor-pointer transition-colors ${checklist ? 'bg-accent' : 'bg-gray-300'}`}
@@ -91,7 +165,7 @@ export default function AIView({ role }: { role: string }) {
     );
   }
 
-  // Familia (original)
+  // Familia / Default
   return (
     <div className="grid md:grid-cols-[1fr_350px] gap-6 items-start h-[calc(100vh-140px)] animate-in fade-in">
       <div className="bg-white border border-line rounded-3xl p-6 shadow-sm flex flex-col h-full">
