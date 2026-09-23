@@ -1,5 +1,5 @@
 import React from "react";
-import { Users, FileText, CheckCircle2, Clock, AlertCircle, PhoneCall, Link2, Plus, Mail, FileBarChart, ArrowRight, UserPlus, AlertTriangle } from "lucide-react";
+import { Users, FileText, CheckCircle2, Clock, AlertCircle, PhoneCall, Link2, Plus, Mail, FileBarChart, ArrowRight, UserPlus, AlertTriangle, FolderOpen } from "lucide-react";
 
 interface DashboardProps {
   role: string;
@@ -11,88 +11,71 @@ export default function DashboardView({ role, setScreen, setShowWizard }: Dashbo
   if (role === "familia") {
     return (
       <div className="grid gap-6 max-w-4xl mx-auto animate-in fade-in">
-        <div className="bg-gradient-to-br from-[#f0edff] to-[#edf5ff] border border-[#ded9ff] rounded-2xl p-8 text-center shadow-sm">
-          <h2 className="text-[24px] font-bold text-[#41337c] mb-2">Olá, Família Souza. Estamos aqui para ajudar.</h2>
-          <p className="text-[#665d88] text-[14px] max-w-2xl mx-auto leading-relaxed">
-            Seu processo de organização patrimonial e inventário está sendo conduzido por <b>Lima & Associados</b>. Siga as etapas abaixo e conte conosco.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-          <div className="bg-white border border-line rounded-xl p-4 text-center">
-            <strong className="block text-2xl text-navy">18/28</strong>
-            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Etapas concluídas</span>
-          </div>
-          <div className="bg-white border border-line rounded-xl p-4 text-center">
-            <strong className="block text-2xl text-navy">3</strong>
-            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Docs pendentes</span>
-          </div>
-          <div className="bg-white border border-line rounded-xl p-4 text-center">
-            <strong className="block text-2xl text-danger">2</strong>
-            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Tarefas urgentes</span>
-          </div>
-          <div className="bg-white border border-line rounded-xl p-4 text-center">
-            <strong className="block text-2xl text-[#a87200]">3 dias</strong>
-            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Próximo prazo</span>
-          </div>
-          <div className="bg-white border border-line rounded-xl p-4 text-center">
-            <strong className="block text-2xl text-navy">4</strong>
-            <span className="text-[10px] text-muted font-bold uppercase tracking-wider">Pessoas envolvidas</span>
-          </div>
-        </div>
-
-        <div className="bg-white border border-line rounded-2xl p-6 shadow-sm">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="font-bold text-navy text-[16px] m-0">Progresso Geral</h3>
-            <span className="bg-ok/10 text-ok px-3 py-1 rounded-full text-xs font-bold">64% Concluído</span>
-          </div>
-          <div className="w-full bg-gray-100 rounded-full h-3 mb-2">
-            <div className="bg-accent h-3 rounded-full transition-all" style={{ width: '64%' }}></div>
-          </div>
-          <div className="flex justify-between text-xs text-muted font-bold uppercase tracking-wider mt-3">
-            <span className="text-accent">1. Documentos Iniciais</span>
-            <span className="text-accent">2. Inventário</span>
-            <span>3. Bancos e Seguros</span>
-            <span>4. Conclusão</span>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-[1fr_250px] gap-6">
-          <div className="space-y-4">
-            <div className="bg-[#fff0f1] border border-[#f5c2c7] rounded-2xl p-5 shadow-sm">
-              <h3 className="text-[#ce4e5d] font-bold text-[15px] mb-2 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#ce4e5d]"></span> Alerta Importante
-              </h3>
-              <p className="text-[#a83240] text-sm mb-4">O escritório solicitou o envio da Certidão de Casamento atualizada para dar entrada no inventário.</p>
-              <button onClick={() => setScreen("documents")} className="bg-[#ce4e5d] text-white px-4 py-2.5 rounded-lg text-sm font-bold shadow-sm hover:brightness-110 transition-all">
-                Enviar Documento
-              </button>
+        <div className="grid md:grid-cols-[1fr_300px] gap-6">
+          <div className="bg-gradient-to-br from-[#f0edff] to-white border border-[#ded9ff] p-6 rounded-3xl shadow-sm flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/5 rounded-bl-[100px] -z-10"></div>
+            
+            <div>
+              <span className="inline-block px-3 py-1 bg-white text-accent font-bold text-xs rounded-full shadow-sm mb-4">
+                Fase 2 de 5: Planejamento
+              </span>
+              <h2 className="text-2xl font-bold text-navy mb-2">Olá, Ana Souza</h2>
+              <p className="text-sm text-[#665d88] leading-relaxed max-w-md">
+                Você e o Dr. Rafael estão trabalhando no caso de <b className="text-navy">Carlos Costa</b>. 
+                Sua próxima etapa é levantar os documentos dos dependentes.
+              </p>
             </div>
-            <div className="bg-[#fff6e3] border border-[#f5d996] rounded-2xl p-5 shadow-sm">
-              <h3 className="text-[#a87200] font-bold text-[15px] mb-2 flex items-center gap-2">Mensagem do Profissional</h3>
-              <p className="text-[#8c5f00] text-sm">"Ana, por favor confira a lista de bens que inseri no plano e valide se esquecemos de algum veículo." - <b>Dr. Rafael Lima</b></p>
+
+            <div className="mt-8 bg-white/60 p-4 rounded-2xl border border-white backdrop-blur-sm">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-bold text-navy uppercase tracking-wider">Progresso Geral</span>
+                <span className="text-xs font-bold text-accent">40%</span>
+              </div>
+              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full bg-accent w-[40%] rounded-full"></div>
+              </div>
             </div>
           </div>
 
-          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
-            <h3 className="text-navy font-bold text-[14px] mb-4">Ações Rápidas</h3>
-            <div className="space-y-2">
-              <button onClick={() => setScreen("tasks")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
-                ▶ Continuar plano
-              </button>
-              <button onClick={() => setScreen("tasks")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
-                + Adicionar tarefa
-              </button>
-              <button onClick={() => setScreen("clients")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
-                👤 Convidar familiar
-              </button>
-              <button onClick={() => setScreen("ai")} className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
-                🤖 Pedir ajuda (IA)
-              </button>
-              <button className="w-full text-left p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
-                💬 Falar c/ profissional
-              </button>
+          <div className="grid grid-rows-2 gap-4">
+            <div className="bg-white border border-line rounded-2xl p-5 shadow-sm cursor-pointer hover:border-accent transition-colors group" onClick={() => setScreen("tasks")}>
+              <div className="flex justify-between items-start mb-2">
+                <div className="w-10 h-10 bg-[#fff0f1] text-[#ce4e5d] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <AlertCircle size={20} />
+                </div>
+                <span className="text-2xl font-bold text-navy">2</span>
+              </div>
+              <h3 className="font-bold text-navy text-sm">Ações Pendentes</h3>
+              <p className="text-xs text-muted mt-1">1 tarefa vence esta semana</p>
             </div>
+
+            <div className="bg-white border border-line rounded-2xl p-5 shadow-sm cursor-pointer hover:border-accent transition-colors group" onClick={() => setScreen("ai")}>
+              <div className="flex justify-between items-start mb-2">
+                <div className="w-10 h-10 bg-[#f0edff] text-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <FileText size={20} />
+                </div>
+              </div>
+              <h3 className="font-bold text-navy text-sm">Tem Dúvidas?</h3>
+              <p className="text-xs text-muted mt-1">Nossa inteligência ajuda você.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-lg font-bold text-navy mb-4">Sua Próxima Tarefa</h3>
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-5 flex items-center justify-between hover:border-accent transition-colors cursor-pointer group">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-muted group-hover:text-accent transition-colors border border-line">
+                <CheckCircle2 size={24} />
+              </div>
+              <div>
+                <h4 className="font-bold text-navy text-[16px]">Solicitar Extrato Bancário</h4>
+                <p className="text-sm text-muted">Bancos e Finanças • <span className="text-[#ce4e5d] font-bold">Vence em 3 dias</span></p>
+              </div>
+            </div>
+            <button className="px-5 py-2.5 bg-gray-50 border border-line text-navy rounded-xl text-sm font-bold shadow-sm hover:bg-gray-100 transition-colors">
+              Iniciar
+            </button>
           </div>
         </div>
       </div>
@@ -214,6 +197,119 @@ export default function DashboardView({ role, setScreen, setShowWizard }: Dashbo
               </button>
               <button onClick={() => setScreen("reports")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
                 <FileBarChart size={16} className="text-accent"/> Acessar Relatório
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (role === "funeraria") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="flex flex-wrap justify-between items-end gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl font-bold text-navy mb-1">Central de Atendimentos</h2>
+            <p className="text-sm text-muted">Gestão de assistência, famílias e serviços prestados.</p>
+          </div>
+          <div className="flex gap-2">
+            <button className="bg-white border border-line text-navy px-4 py-2 rounded-xl text-sm font-bold shadow-sm hover:bg-gray-50 flex items-center gap-2">
+              <ArrowRight size={16} /> Relatórios
+            </button>
+            <button onClick={() => setShowWizard && setShowWizard(true)} className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-md hover:brightness-110 flex items-center gap-2">
+              <Plus size={16} /> Novo Atendimento
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Atendimentos Hoje</span>
+            <strong className="text-3xl text-navy block mb-1">12</strong>
+            <span className="text-xs text-ok font-bold">+3 novas famílias</span>
+          </div>
+          <div className="bg-gradient-to-br from-[#f0edff] to-white border border-[#ded9ff] rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-accent font-[850] uppercase tracking-wider block mb-2">Assistência Ativada</span>
+            <strong className="text-3xl text-accent block mb-1">45</strong>
+            <span className="text-xs text-accent font-bold">Serviços em andamento</span>
+          </div>
+          <div className="bg-[#fff0f1] border border-[#f5c2c7] rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-[#ce4e5d] font-[850] uppercase tracking-wider block mb-2">Atend. Prioritários</span>
+            <strong className="text-3xl text-[#a83240] block mb-1">3</strong>
+            <span className="text-xs text-[#ce4e5d] font-bold">Requer atenção imediata</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Pendências</span>
+            <strong className="text-3xl text-navy block mb-1">28</strong>
+            <span className="text-xs text-muted font-bold">Aguardando documentos</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Tempo Médio de Ativação</span>
+            <strong className="text-2xl text-navy block mb-1">45 min</strong>
+            <span className="text-xs text-ok font-bold">Excelente</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Satisfação das Famílias</span>
+            <strong className="text-2xl text-navy block mb-1">9.8/10</strong>
+            <span className="text-xs text-muted font-bold">Média do mês</span>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-[1fr_300px] gap-6">
+          <div className="space-y-6">
+            <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+              <h3 className="text-lg font-bold text-navy mb-4">Avisos e Pendências Críticas</h3>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-4 bg-[#fff0f1] border border-[#f5c2c7] rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white text-[#ce4e5d] flex items-center justify-center font-bold shadow-sm">
+                      <AlertTriangle size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-[#a83240]">Documentação do Traslado - Família Souza</h4>
+                      <p className="text-xs text-[#ce4e5d]">Parceiro (Transportadora) aguardando guia de liberação.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between p-4 bg-gray-50 border border-line rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white text-navy flex items-center justify-center font-bold shadow-sm">
+                      <Clock size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-navy">Preparação Memorial Digital - Família Lima</h4>
+                      <p className="text-xs text-muted">Aguardando fotos enviadas pela família.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+            <h3 className="text-lg font-bold text-navy mb-4">Ações Rápidas</h3>
+            <div className="space-y-2">
+              <button onClick={() => setShowWizard && setShowWizard(true)} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <UserPlus size={16} className="text-accent"/> Cadastrar Família
+              </button>
+              <button onClick={() => setScreen("cases")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <Plus size={16} className="text-accent"/> Ativar Assistência
+              </button>
+              <button onClick={() => setScreen("cases")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <FolderOpen size={16} className="text-accent"/> Abrir Serviço
+              </button>
+              <button onClick={() => setScreen("team")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <CheckCircle2 size={16} className="text-accent"/> Atribuir Atendente
+              </button>
+              <button onClick={() => setScreen("clients")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <Mail size={16} className="text-accent"/> Enviar Convite
+              </button>
+              <button onClick={() => setScreen("tasks")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <AlertCircle size={16} className="text-accent"/> Acompanhar Pendência
               </button>
             </div>
           </div>
