@@ -14,6 +14,7 @@ import AIView from "@/components/views/AIView";
 import PlansView from "@/components/views/PlansView";
 import SettingsView from "@/components/views/SettingsView";
 import TeamView from "@/components/views/TeamView";
+import ReportsView from "@/components/views/ReportsView";
 
 export const rolesData: Record<string, RoleData> = {
   familia: {
@@ -148,6 +149,7 @@ export default function Home() {
       case "tasks": return <TasksView role={role as string} />;
       case "documents": return <DocumentsView role={role as string} />;
       case "team": return <TeamView role={role as string} />;
+      case "reports": return <ReportsView role={role as string} />;
       case "ai": return <AIView role={role as string} />;
       case "plans": return <PlansView role={role as string} />;
       case "settings": return <SettingsView role={role as string} />;
