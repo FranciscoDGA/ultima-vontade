@@ -1,115 +1,10 @@
 import React from "react";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { Users, FileText, CheckCircle2, Clock, AlertCircle, PhoneCall, Link2, Plus, Mail, FileBarChart, ArrowRight, UserPlus, AlertTriangle } from "lucide-react";
 
-const chartData = [
-  { name: "Jan", casos: 4 },
-  { name: "Fev", casos: 7 },
-  { name: "Mar", casos: 12 },
-  { name: "Abr", casos: 18 },
-  { name: "Mai", casos: 15 },
-  { name: "Jun", casos: 24 },
-];
-
-const dashboardData: Record<string, any> = {
-  familia: {
-    k: [
-      ["Progresso do caso", "64%", "18 de 28 etapas"],
-      ["Tarefas abertas", "10", "3 urgentes"],
-      ["Documentos", "23", "3 para revisar"],
-      ["Próximo prazo", "3 dias", "Seguro de vida"],
-    ],
-    rows: [
-      ["Seguro de vida", "Ana Souza", "3 dias", "Urgente"],
-      ["Conta corrente", "Marcos Souza", "5 dias", "Próxima"],
-      ["Documentos dos dependentes", "Ana Souza", "8 dias", "No prazo"],
-    ],
-    quickActions: [
-      ["✓", "Continuar meu plano", "tasks"],
-      ["▣", "Adicionar documento", "documents"],
-      ["♧", "Convidar familiar", "people"],
-    ],
-  },
-  advocacia: {
-    k: [
-      ["Providências identificadas", "28", "18 concluídas"],
-      ["Aguardando documentos", "6", "23 já organizados"],
-      ["Prazo próximo", "3", "Atenção necessária"],
-      ["Situação de risco", "1", "4 pessoas envolvidas"],
-    ],
-    rows: [
-      ["Família Silva", "Inventário com Seguro", "Hoje", "Urgente: ITCMD"],
-      ["Família Oliveira", "Seguro de Vida", "2 dias", "Aguardando certidão"],
-      ["Família Souza", "Alvará Judicial", "15 set", "No prazo"],
-    ],
-    quickActions: [
-      ["♙", "+ Novo Caso (Smart)", "cases"],
-      ["▤", "Cobrar Pendências", "tasks"],
-      ["✦", "Relatório de Produtividade", "documents"],
-    ],
-  },
-  funeraria: {
-    k: [
-      ["Atendimentos no mês", "24", "+18% vs. anterior"],
-      ["Aguardando ativação", "5", "contato necessário"],
-      ["Prioritários", "2", "atender hoje"],
-      ["Satisfação", "4,9/5", "19 avaliações"],
-    ],
-    rows: [
-      ["Família Souza", "João Souza · hoje", "Ana Souza", "Ativo"],
-      ["Família Oliveira", "Maria Oliveira · ontem", "Paulo Oliveira", "Aguardando"],
-      ["Família Santos", "Carlos Santos · 12 set.", "Luciana Santos", "Concluído"],
-    ],
-    quickActions: [
-      ["♙", "Ativar família", "clients"],
-      ["▤", "Abrir serviço", "cases"],
-      ["✓", "Ver pendências", "tasks"],
-    ],
-  },
-  seguradora: {
-    k: [
-      ["Vidas cobertas", "1.248", "carteira ativa"],
-      ["Casos no mês", "24", "+6 vs. anterior"],
-      ["SLA de assistência", "92%", "meta de 90%"],
-      ["Custo médio/caso", "R$ 184", "-8% no mês"],
-    ],
-    rows: [
-      ["UV-2026-0148", "Vida · João Souza", "3 dias para SLA", "Em andamento"],
-      ["UV-2026-0147", "Funeral · M. Oliveira", "Concluído em 9 dias", "Concluído"],
-      ["UV-2026-0146", "Vida · C. Santos", "Documento pendente", "Atenção"],
-    ],
-    quickActions: [
-      ["▤", "Abrir assistência", "cases"],
-      ["◒", "Ver SLA", "tasks"],
-      ["▣", "Exportar relatório", "documents"],
-    ],
-  },
-  banco: {
-    k: [
-      ["Solicitações abertas", "36", "9 novas hoje"],
-      ["Docs. pendentes", "9", "3 prioritários"],
-      ["Auditoria completa", "98%", "últimos 30 dias"],
-      ["Tempo médio", "4,6 dias", "-1,2 dia no mês"],
-    ],
-    rows: [
-      ["SOL-8842", "Conta corrente · João Souza", "Ana Souza", "Documentos"],
-      ["SOL-8837", "Seguro e previdência · M. Oliveira", "Paulo Oliveira", "Em análise"],
-      ["SOL-8829", "Financiamento · C. Santos", "Luciana Santos", "Concluído"],
-    ],
-    quickActions: [
-      ["▤", "Nova solicitação", "cases"],
-      ["▣", "Validar documentos", "documents"],
-      ["◒", "Ver auditoria", "settings"],
-    ],
-  },
-};
-
-export default function DashboardView({ role, setScreen }: { role: string; setScreen: (s: string) => void }) {
-  const data = dashboardData[role];
-
+export default function DashboardView({ role, setScreen }: { role: string, setScreen: (s: string) => void }) {
   if (role === "familia") {
     return (
       <div className="grid gap-6 max-w-4xl mx-auto animate-in fade-in">
-        {/* Welcome Message */}
         <div className="bg-gradient-to-br from-[#f0edff] to-[#edf5ff] border border-[#ded9ff] rounded-2xl p-8 text-center shadow-sm">
           <h2 className="text-[24px] font-bold text-[#41337c] mb-2">Olá, Família Souza. Estamos aqui para ajudar.</h2>
           <p className="text-[#665d88] text-[14px] max-w-2xl mx-auto leading-relaxed">
@@ -117,7 +12,6 @@ export default function DashboardView({ role, setScreen }: { role: string; setSc
           </p>
         </div>
 
-        {/* Indicators */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           <div className="bg-white border border-line rounded-xl p-4 text-center">
             <strong className="block text-2xl text-navy">18/28</strong>
@@ -141,7 +35,6 @@ export default function DashboardView({ role, setScreen }: { role: string; setSc
           </div>
         </div>
 
-        {/* Big Progress Bar */}
         <div className="bg-white border border-line rounded-2xl p-6 shadow-sm">
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-bold text-navy text-[16px] m-0">Progresso Geral</h3>
@@ -158,7 +51,6 @@ export default function DashboardView({ role, setScreen }: { role: string; setSc
           </div>
         </div>
 
-        {/* Pendencies & Quick Actions */}
         <div className="grid md:grid-cols-[1fr_250px] gap-6">
           <div className="space-y-4">
             <div className="bg-[#fff0f1] border border-[#f5c2c7] rounded-2xl p-5 shadow-sm">
@@ -201,159 +93,133 @@ export default function DashboardView({ role, setScreen }: { role: string; setSc
     );
   }
 
-  return (
-    <div className="grid gap-4">
-      {/* Notice */}
-      <div className="p-4 flex justify-between items-center gap-4 bg-gradient-to-r from-[#eafaf6] to-[#eef3ff] border border-[#d9eee9] rounded-2xl mb-4">
-        <div>
-          <h3 className="text-navy m-0 mb-1 text-[15px] font-bold">
-            {role === "familia"
-              ? "Seu plano está sendo acompanhado com segurança."
-              : "Bem-vindo ao seu workspace corporativo."}
-          </h3>
-          <p className="text-[#5b7282] m-0 text-[12px] leading-relaxed">
-            O workspace adapta fluxo, permissões e linguagem ao perfil selecionado.
-          </p>
-        </div>
-        <div className="text-[28px]">
-          {role === "banco" ? "🏦" : role === "funeraria" ? "🕊️" : role === "familia" ? "✦" : "🛡️"}
-        </div>
-      </div>
-
-      {/* KPIs */}
-      <div className="grid grid-cols-4 gap-3 mb-5">
-        {data.k.map((kpi: string[], idx: number) => (
-          <div key={idx} className="bg-white border border-line rounded-2xl p-4 shadow-sm">
-            <small className="block text-muted text-[10px] uppercase font-[850] tracking-wider">
-              {kpi[0]}
-            </small>
-            <strong className="block text-navy text-[25px] mt-2 font-bold">{kpi[1]}</strong>
-            <span className="block text-ok text-[11px] mt-1.5">{kpi[2]}</span>
+  if (role === "advocacia") {
+    return (
+      <div className="grid gap-6 animate-in fade-in">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Casos Ativos</span>
+            <strong className="text-3xl text-navy block mb-1">42</strong>
+            <span className="text-xs text-ok font-bold">+5 esta semana</span>
           </div>
-        ))}
-      </div>
-
-      {/* Two columns layout */}
-      <div className="grid grid-cols-[1.35fr_0.8fr] gap-4">
-        {/* Table */}
-        <div className="bg-white border border-line rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between gap-4 p-4 pb-3">
-            <div>
-              <h2 className="text-navy text-[16px] font-bold m-0">
-                {role === "familia" ? "Próximas etapas" : "Fila prioritária"}
-              </h2>
-            </div>
-            <button className="bg-accent text-white px-3 py-1.5 rounded-lg text-xs font-bold">
-              {role === "familia" ? "+ Nova tarefa" : "+ Novo caso"}
-            </button>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Novos Clientes</span>
+            <strong className="text-3xl text-navy block mb-1">12</strong>
+            <span className="text-xs text-ok font-bold">Últimos 30 dias</span>
           </div>
-          <div className="overflow-auto">
-            <table className="w-full border-collapse text-[12px] min-w-[580px]">
-              <thead>
-                <tr>
-                  <th className="text-left py-3 px-4 border-t border-[#eef1f5] uppercase text-muted text-[10px] tracking-wider">
-                    {role === "familia" ? "Etapa" : "Atendimento"}
-                  </th>
-                  <th className="text-left py-3 px-4 border-t border-[#eef1f5] uppercase text-muted text-[10px] tracking-wider">
-                    {role === "familia" ? "Responsável" : "Contexto"}
-                  </th>
-                  <th className="text-left py-3 px-4 border-t border-[#eef1f5] uppercase text-muted text-[10px] tracking-wider">
-                    Prazo
-                  </th>
-                  <th className="text-left py-3 px-4 border-t border-[#eef1f5] uppercase text-muted text-[10px] tracking-wider">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.rows.map((row: string[], idx: number) => {
-                  const statusRaw = row[3].toLowerCase();
-                  const isDanger = statusRaw.includes("urg") || statusRaw.includes("aten");
-                  const isWarn = statusRaw.includes("agu") || statusRaw.includes("doc");
-                  const statusClass = isDanger 
-                    ? "bg-[#fff0f1] text-[#ce4e5d]" 
-                    : isWarn 
-                      ? "bg-[#fff6e3] text-[#a87200]" 
-                      : "bg-[#eaf8f5] text-[#078b7d]";
-
-                  return (
-                    <tr key={idx}>
-                      <td className="text-left py-3 px-4 border-t border-[#eef1f5]">
-                        <strong className="text-navy font-bold">{row[0]}</strong>
-                      </td>
-                      <td className="text-left py-3 px-4 border-t border-[#eef1f5]">{row[1]}</td>
-                      <td className="text-left py-3 px-4 border-t border-[#eef1f5]">{row[2]}</td>
-                      <td className="text-left py-3 px-4 border-t border-[#eef1f5]">
-                        <span className={`inline-block px-2 py-1 rounded-full text-[10px] font-[850] whitespace-nowrap ${statusClass}`}>
-                          {row[3]}
-                        </span>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          <div className="bg-[#fff0f1] border border-[#f5c2c7] rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-[#ce4e5d] font-[850] uppercase tracking-wider block mb-2">Prazos na Semana</span>
+            <strong className="text-3xl text-[#a83240] block mb-1">8</strong>
+            <span className="text-xs text-[#ce4e5d] font-bold">3 próximos do vencimento</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Casos Parados</span>
+            <strong className="text-3xl text-[#a87200] block mb-1">4</strong>
+            <span className="text-xs text-muted font-bold">Aguardando cliente</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Docs Pendentes</span>
+            <strong className="text-3xl text-navy block mb-1">115</strong>
+            <span className="text-xs text-muted font-bold">Em 12 casos ativos</span>
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-white border border-line rounded-2xl shadow-sm">
-          <div className="flex items-center justify-between gap-4 p-4 pb-3">
-            <div>
-              <h2 className="text-navy text-[16px] font-bold m-0">Ações rápidas</h2>
-              <span className="text-muted text-[11px] mt-1 block">Atalhos do seu perfil</span>
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Tarefas por Adv</span>
+            <strong className="text-2xl text-navy block mb-1">14.5</strong>
+            <span className="text-xs text-muted font-bold">Média atual</span>
           </div>
-          <div className="px-4 pb-3">
-            {data.quickActions.map((action: string[], idx: number) => (
-              <div 
-                key={idx} 
-                onClick={() => setScreen(action[2])}
-                className={`flex items-center gap-3 border-t border-[#f0f2f6] py-3 cursor-pointer ${idx === 0 ? 'border-t-0' : ''}`}
-              >
-                <div className="w-8 h-8 rounded-lg bg-[#eef3ff] text-accent grid place-items-center font-[850] text-[11px]">
-                  {action[0]}
-                </div>
-                <div className="flex-1">
-                  <b className="text-navy block text-[12px]">{action[1]}</b>
-                  <small className="text-muted text-[10px]">Clique para abrir este módulo</small>
-                </div>
-                <span className="text-muted">›</span>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Tempo Médio / Caso</span>
+            <strong className="text-2xl text-navy block mb-1">45 dias</strong>
+            <span className="text-xs text-ok font-bold">-12% vs mês anterior</span>
+          </div>
+          <div className="bg-white border border-line rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-muted font-[850] uppercase tracking-wider block mb-2">Taxa de Conclusão</span>
+            <strong className="text-2xl text-navy block mb-1">88%</strong>
+            <span className="text-xs text-muted font-bold">No prazo estimado</span>
+          </div>
+          <div className="bg-gradient-to-br from-[#f0edff] to-white border border-[#ded9ff] rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-accent font-[850] uppercase tracking-wider block mb-2">Satisfação (NPS)</span>
+            <strong className="text-2xl text-accent block mb-1">9.4/10</strong>
+            <span className="text-xs text-accent font-bold">Famílias atendidas</span>
+          </div>
+          <div className="bg-[#fff6e3] border border-[#f5d996] rounded-2xl p-5 shadow-sm">
+            <span className="text-[11px] text-[#a87200] font-[850] uppercase tracking-wider block mb-2">Risco de Multa</span>
+            <strong className="text-2xl text-[#8c5f00] block mb-1">2 Casos</strong>
+            <span className="text-xs text-[#a87200] font-bold">Prazo de 60 dias (ITCMD)</span>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-[1fr_300px] gap-6">
+          <div className="space-y-6">
+            <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-lg font-bold text-navy">Prazos e Alertas da Semana</h3>
+                <button className="text-sm font-bold text-accent hover:underline flex items-center gap-1">Ver todos <ArrowRight size={14}/></button>
               </div>
-            ))}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between p-4 bg-[#fff0f1] border border-[#f5c2c7] rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white text-[#ce4e5d] flex items-center justify-center font-bold shadow-sm">
+                      <AlertTriangle size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-[#a83240]">Vencimento ITCMD - Família Costa</h4>
+                      <p className="text-xs text-[#ce4e5d]">Prazo fatal em 3 dias (Evitar multa de 20%)</p>
+                    </div>
+                  </div>
+                  <button onClick={() => setScreen("cases")} className="px-3 py-1.5 bg-white text-[#ce4e5d] text-xs font-bold rounded-lg border border-[#f5c2c7] hover:bg-gray-50">Acessar Caso</button>
+                </div>
+                
+                <div className="flex items-center justify-between p-4 bg-gray-50 border border-line rounded-xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-white text-navy flex items-center justify-center font-bold shadow-sm">
+                      <Clock size={18} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-navy">Reunião de Alinhamento - Inventário Silva</h4>
+                      <p className="text-xs text-muted">Hoje às 14:00 - Dr. Rafael (Sala 2)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white border border-line rounded-2xl shadow-sm p-6">
+            <h3 className="text-lg font-bold text-navy mb-4">Ações Rápidas</h3>
+            <div className="space-y-2">
+              <button className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <Plus size={16} className="text-accent"/> Abrir Novo Caso
+              </button>
+              <button onClick={() => setScreen("clients")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <UserPlus size={16} className="text-accent"/> Cadastrar Cliente
+              </button>
+              <button onClick={() => setScreen("tasks")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <CheckCircle2 size={16} className="text-accent"/> Distribuir Tarefa
+              </button>
+              <button onClick={() => setScreen("cases")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <Mail size={16} className="text-accent"/> Convidar Família
+              </button>
+              <button onClick={() => setScreen("tasks")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <AlertCircle size={16} className="text-accent"/> Revisar Pendências
+              </button>
+              <button onClick={() => setScreen("reports")} className="w-full flex items-center gap-3 p-3 rounded-xl border border-line hover:border-accent hover:bg-[#f0edff] text-sm font-semibold text-navy transition-colors">
+                <FileBarChart size={16} className="text-accent"/> Acessar Relatório
+              </button>
+            </div>
           </div>
         </div>
       </div>
+    );
+  }
 
-      {/* Chart Section */}
-      {role !== "familia" && (
-        <div className="bg-white border border-line rounded-2xl shadow-sm p-5 mt-1">
-          <div className="mb-4">
-            <h2 className="text-navy text-[16px] font-bold m-0">Volume de Casos (Últimos 6 meses)</h2>
-            <p className="text-muted text-[12px] mt-1">Acompanhamento de novos registros na plataforma.</p>
-          </div>
-          <div className="h-[250px] w-full text-xs">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="colorCasos" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.3}/>
-                    <stop offset="95%" stopColor="var(--accent)" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--muted)' }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--muted)' }} />
-                <CartesianGrid vertical={false} stroke="#eef1f5" />
-                <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: '1px solid #eef1f5', boxShadow: '0 10px 25px rgba(0,0,0,0.05)' }} 
-                  itemStyle={{ color: 'var(--navy)', fontWeight: 'bold' }}
-                />
-                <Area type="monotone" dataKey="casos" stroke="var(--accent)" strokeWidth={3} fillOpacity={1} fill="url(#colorCasos)" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      )}
+  // Fallback for others
+  return (
+    <div className="bg-white border border-line rounded-2xl shadow-sm p-10 text-center text-muted">
+      Dashboard {role} em construção.
     </div>
   );
 }
